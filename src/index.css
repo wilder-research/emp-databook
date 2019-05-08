@@ -1,0 +1,75 @@
+body {
+    font: 100% "Century Gothic", Futura, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.heading {
+    font-size: 1.2rem;
+}
+.heading .title {
+    font-weight: bold;
+}
+
+.searchbar,
+.topic-select,
+.topic-list,
+.question-list,
+.resulttype-list,
+.datatable-list {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background: #f9f9f9;
+}
+
+.topic,
+.question,
+.resulttype,
+.datatable {
+    background: #fff;
+    border: 1px solid #999;
+    padding: 5px;
+    margin: 5px;
+}
+
+.checked:focus,
+.checked:hover,
+.unchecked:focus,
+.unchecked:hover {
+    font-style: italic;
+    border-color: red;
+    cursor: pointer;
+}
+
+.checked {
+    color: green;
+}
+
+.checked::before {
+    content: "\2612\00A0";
+    display: inline-block;
+}
+.unchecked {
+    color: #000;
+}
+
+.unchecked::before {
+    content: "\2610\00A0";
+    display: inline-block;
+}
+
+/* some layout */
+
+.databook {
+    max-width: 50rem;
+}
+
+.databook-selections,
+.databook-results {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  
