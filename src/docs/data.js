@@ -23,6 +23,9 @@ export const RESULTTYPES = [
   { value: 'Results by age', label: 'Results by age', active: false },
   { value: 'Results by education level', label: 'Results by education level', active: false },
   { value: 'Results by household income', label: 'Results by household income', active: false },
+  { value: 'Results by housing status', label: 'Results by housing status', active: false },
+  { value: 'Results by home language', label: 'Results by home language', active: false },
+  { value: 'Results by race/ethnicity', label: 'Results by race/ethnicity', active: false },
 ];
 
 //export const TOPICS = [...new Set(QUESTIONS.map(question => question.topic))];

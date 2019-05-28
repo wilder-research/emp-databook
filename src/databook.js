@@ -1,13 +1,14 @@
 import React from 'react';
 import Select from 'react-select';
+
 //import CreatableSelect from 'react-select/lib/Creatable';
 
 //a topic can be selected or not
 function Heading(props) {
   return (
-    <div className="heading">
-      <div className="title">East Metro Pulse Databook</div>
-      <div className="intro">View or download data tables of East Metro Pulse survey results.</div>
+    <div className="databook__heading">
+      <div className="databook__title">Volume 2 Data Book</div>
+      <div className="databook__intro">View or download data tables of East Metro Pulse survey results.</div>
     </div>
   );
 }
@@ -16,7 +17,7 @@ function Heading(props) {
 //a topic can be selected or not
 function Topic(props) {
   return (
-    <div className={'topic' + ((props.active) ? ' checked' : ' unchecked')} onClick={props.onClick}>
+    <div className="databook__topic databook__topic--{((props.active) ? 'checked' : 'unchecked')}" onClick={props.onClick}>
       {// TODO topics should look different when selected}
       {props.label}
     </div>
@@ -36,7 +37,7 @@ class TopicList extends React.Component {
 
   render() {
     return (
-      <div className="topic-list">
+      <div className="databook__topiclist">
         <p>Filter survey questions by topic:</p>
         {this.props.topics.map((value, index) => {
           return this.renderTopic(index);
@@ -55,7 +56,7 @@ class SearchBar extends React.Component {
   }
   render() {
     return (
-      <form className="searchbar">
+      <form className="databook__searchbar">
         <p>Search to find questions:</p>
         <input
           className="form-control"
@@ -81,7 +82,7 @@ class TopicSelect extends React.Component {
   };
   render() {
     return (
-      <div className="topic-select">
+      <div className="databook__topic-select">
         <p>First, select your topic(s) of interest:</p>
         <Select
           isMulti
@@ -97,9 +98,8 @@ class TopicSelect extends React.Component {
 //a question can be selected or not
 function Question(props) {
   return (
-    <div className={'question' + ((props.active) ? ' checked' : ' unchecked')} onClick={props.onClick}>
-      {/* TODO question should look different when selected */}
-      <em>{props.topic + '; '}</em>
+    <div className={'databook__question databook__question--' + ((props.active) ? 'checked' : 'unchecked')} onClick={props.onClick}>
+      {/* props.value */}
       {props.label}
     </div>
   );
@@ -141,6 +141,7 @@ class QuestionList extends React.Component {
   renderQuestion(i) {
     return (<Question
       key={i}
+      value={this.props.questions[i].value}
       topic={this.props.questions[i].topic}
       label={this.props.questions[i].label}
       active={this.props.questions[i].active}
@@ -150,7 +151,7 @@ class QuestionList extends React.Component {
 
   render() {
     return (
-      <div className="question-list">
+      <div className="databook__question-list">
         {this.renderQuestionsTitle()}
         {/* show each if shouldRenderQuestion(question) */
           this.props.questions.map((question, index) => {
@@ -167,8 +168,7 @@ class QuestionList extends React.Component {
 //a resulttype can be selected or not
 function Resulttype(props) {
   return (
-    <div className={'resulttype' + ((props.active) ? ' checked' : ' unchecked')} onClick={props.onClick}>
-      {/* TODO resulttypes should look different when selected */}
+    <div className={'databook__resulttype databook__resulttype--' + ((props.active) ? 'checked' : 'unchecked')} onClick={props.onClick}>
       {props.label}
     </div>
   );
@@ -184,7 +184,11 @@ class ResulttypeList extends React.Component {
       }
     });
     if (activeResulttypes > 0) {
-      return (<p>Finally, select the result types to include:</p>);
+      return (
+        <p>Finally, select the result types to include: &nbsp;
+        <small><em>{'('}scroll down to view your data tables{')'}</em></small>
+        </p>
+      );
     }
   }
 
@@ -216,7 +220,7 @@ class ResulttypeList extends React.Component {
 
   render() {
     return (
-      <div className="resulttype-list">
+      <div className="databook__resulttype-list">
         {this.renderResulttypesTitle()}
         {/* show each if shouldRenderResulttype(resulttype)  */
           this.props.resulttypes.map((resulttype, index) => {
@@ -232,73 +236,122 @@ class ResulttypeList extends React.Component {
 
 //a question can be selected or not
 class Datatable extends React.Component {
+  //props passed:
+  //key={i}
+  //question={this.props.questions[i]}
+  //resulttypes={this.props.resulttypes}
+  //csv={this.props.csv}
+
   renderResulttypes() {
     let result = [];
     this.props.resulttypes.map((resulttype, index) => {
+      //only display the selected resulttypes
       if (resulttype.active) {
         result.push('[' + resulttype.label + ']');
       }
       return null;
     });
-    if (result.length > 0) {
-      return (<div>{
-        result.map((item, index) => {
-          return (<div>{item}</div>);
-      })}</div>);
-    }
+    return (<div>{
+      result.map((item, index) => {
+        return (<div key={index}>{item}</div>);
+      })}</div>
+    );
   }
+  renderDatatableForQuestion(question) {
+    let result = [];
+    let numRows = 0;
+    result.push(<div>{question.label}</div>);
+    /*
+    const Qnum = this.props.data.cols.findIndex(col => col === 'Qnum' );
+    this.props.data.rows.map((row, index) => {
+      if (row[Qnum] === question.value) {
+        //result.push('[' + row[Qnum] + row[Qnum+1] + row[Qnum+2] + row[Qnum+3] + ']');
+        numRows++;
+      }
+      return null;
+    });
+    */
+    const rows = this.props.csv[question.value].rows; //Object.entries(user)
+    Object.entries(rows).map((qProp, key) => {
+      //if (index === question.value) {
+        //result.push('[' + row[Qnum] + row[Qnum+1] + row[Qnum+2] + row[Qnum+3] + ']');
+        result.push('[' + qProp + '; ' + key + ']');
+        numRows++;
+      //}
+      return null;
+    });
+    result.push('[' + numRows + ' rows of data found for ' + question.value + ']');
+    return (<div>{
+      result.map((item, index) => {
+        return (<div key={index}>{item}</div>);
+      })}</div>
+    );
+  }
+
   render () {
     return (
-      <div className="datatable">
+      <div className="databook__datatable">
         {/* TODO data tables should include selected data */}
-        Table for: {this.props.question}
+        {this.renderDatatableForQuestion(this.props.question) }
         {this.renderResulttypes()}
       </div>
     );
     }
 }
 
-//a data list renders all the data outputs
+//a datatable list renders all the datatable outputs
 class DatatableList extends React.Component {
-  renderDatatablesTitle() {
-    let activeQuestions = 0;
-    this.props.questions.forEach(question => {
-      if (this.shouldRenderDatatable(question)) {
-        activeQuestions = activeQuestions + 1;
-      }
-    });
-    if (activeQuestions > 0) {
-      return (<p>Here are your data tables!</p>);
-    }
-  }
-  
+  //props passed:
+  //questions={current.questions}
+  //resulttypes={current.resulttypes}
+  //csv={this.props.csv}
+
   shouldRenderDatatable(question) {
-  //any result types selected
-	let activeResulttypes = 0;
-    this.props.resulttypes.forEach(resulttype => {
-      if (resulttype.active) {
-        activeResulttypes = activeResulttypes + 1;
-      }
-    });
 	  //this question active and result types
-    if (question.active && activeResulttypes > 0) {
+    if (question.active) {
       return true;
     } else {
       return false;
     }
   }
 
+  shouldRenderAny() {
+    //any questions selected
+    let activeQuestions = 0;
+    this.props.questions.forEach(question => {
+      if (this.shouldRenderDatatable(question)) {
+        activeQuestions = activeQuestions + 1;
+      }
+    });
+    //any result types selected
+    let activeResulttypes = 0;
+    this.props.resulttypes.forEach(resulttype => {
+      if (resulttype.active) {
+        activeResulttypes = activeResulttypes + 1;
+      }
+    });
+    return ((activeQuestions > 0) && (activeResulttypes > 0));
+  }
+
+  renderDatatablesTitle() {
+    return (<p>Here are your selected data tables:</p>);
+  }
+  
   renderDatatable(i) {
     return (<Datatable
       key={i}
-      question={this.props.questions[i].label}
+      question={this.props.questions[i]}
       resulttypes={this.props.resulttypes}
+      csv={this.props.csv}
     />);
   }
 
   render() {
+    if (!this.shouldRenderAny()) {
+      return null;
+    }
     return (
-      <div className="datatable-list">
+      <div className="databook__datatable-list">
         {this.renderDatatablesTitle()}
         {this.props.questions.map((question, index) => {
           return (this.shouldRenderDatatable(question))
@@ -310,7 +363,7 @@ class DatatableList extends React.Component {
   }
 }
 
-//the data book is the top level component
+//the databook is the top level component
 export default class DataBook extends React.Component {
   constructor(props) {
     super(props);
@@ -400,7 +453,7 @@ export default class DataBook extends React.Component {
     return (
       <div className="databook">
         <Heading />
-        <div className="databook-selections">
+        <div className="databook__selections">
           {/*<SearchBar
               filterText={current.filterText}
               onChange={(searchval) => this.handleSearchbarChange(searchval)}
@@ -428,10 +481,11 @@ export default class DataBook extends React.Component {
               onClick={(i) => this.handleResulttypeClick(i)}
           />
         </div>
-        <div className="databook-results">
+        <div className="databook__results">
           <DatatableList
             questions={current.questions}
             resulttypes={current.resulttypes}
+            csv={this.props.csv}
           />
         </div>
       </div>

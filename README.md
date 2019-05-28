@@ -1,18 +1,18 @@
-## East Metro Pulse Interactive Databook
+## East Metro Pulse Interactive Data Book
 
-This project is a proof-of-concept for an interactive databook of East Metro Pulse survey data.
+This project is a proof-of-concept for an interactive data book of East Metro Pulse survey data.
 Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## General requirements
 
-* When initially loaded, the Databook will display a list or a selection menu of Topics
+* When initially loaded, the Data Book will display a list or a selection menu of Topics
 * As a user begins selecting Topics, a selection list of the related Questions will appear
 * Selecting Questions will trigger display of the available Result Types for those Questions
 * Selecting Result Types will then begin to display the Data Tables
 
 ## Additional considerations
 
-* Users may change their selections at any time, and the Databook should update as they do so.
+* Users may change their selections at any time, and the Data Book should update as they do so.
 * Users will get one or more links to download their selected Data Tables in .CSV format.
 
 ## Currently out of scope

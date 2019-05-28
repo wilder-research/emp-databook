@@ -4,72 +4,111 @@ body {
     padding: 0;
 }
 
-.heading {
-    font-size: 1.2rem;
+/* Follow BEM naming approach */
+.databook {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem 0;
+    background: #ffffff;
 }
-.heading .title {
+
+.databook__heading {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+}
+
+.databook__title {
     font-weight: bold;
 }
 
-.searchbar,
-.topic-select,
-.topic-list,
-.question-list,
-.resulttype-list,
-.datatable-list {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px 0;
-    background: #f9f9f9;
+.databook__intro {
+    font-weight: normal;
 }
 
-.topic,
-.question,
-.resulttype,
-.datatable {
-    background: #fff;
-    border: 1px solid #999;
+.databook__selections,
+.databook__results {
+    display: flex;
+    flex-direction: column;
+}
+
+.databook__topic-select {
+    padding: 10px;
+    margin: 10px 0;
+    background: #ffffff;
+}
+
+/*
+.databook__topic {}
+.databook__topic--checked {}
+.databook__topic--unchecked {}
+.databook__topiclist {}
+.databook__searchbar {}
+*/
+
+.databook__question-list {
+    padding: 10px;
+    margin: 10px 0;
+}
+.databook__question {
     padding: 5px;
     margin: 5px;
 }
-
-.checked:focus,
-.checked:hover,
-.unchecked:focus,
-.unchecked:hover {
+.databook__question:focus,
+.databook__question:hover {
     font-style: italic;
     border-color: red;
     cursor: pointer;
 }
-
-.checked {
+.databook__question--checked {
     color: green;
 }
-
-.checked::before {
+.databook__question--checked::before {
     content: "\2612\00A0";
     display: inline-block;
 }
-.unchecked {
+.databook__question--unchecked {
     color: #000;
 }
-
-.unchecked::before {
+.databook__question--unchecked::before {
     content: "\2610\00A0";
     display: inline-block;
 }
 
-/* some layout */
-
-.databook {
-    max-width: 50rem;
+.databook__resulttype-list {
+    padding: 10px;
+    margin: 10px 0;
+}
+.databook__resulttype {
+    padding: 5px;
+    margin: 5px;
+}
+.databook__resulttype:focus,
+.databook__resulttype:hover {
+    font-style: italic;
+    border-color: red;
+    cursor: pointer;
+}
+.databook__resulttype--checked {
+    color: green;
+}
+.databook__resulttype--checked::before {
+    content: "\2612\00A0";
+    display: inline-block;
+}
+.databook__resulttype--unchecked {
+    color: #000;
+}
+.databook__resulttype--unchecked::before {
+    content: "\2610\00A0";
+    display: inline-block;
 }
 
-.databook-selections,
-.databook-results {
-    display: flex;
-    flex-direction: column;
-  }
-
-
-  
+.databook__datatable-list {
+    padding: 5px;
+    margin: 5px;
+}
+.databook__datatable {
+    border: 1px solid #999999;
+    padding: 5px;
+    margin: 5px;
+}

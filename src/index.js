@@ -10,6 +10,8 @@ import DataBook from './databook';
 import { QUESTIONS, TOPICS, RESULTTYPES } from './docs/data';
 import './index.css';
 
+let CSV = require('./docs/csv.json');
+
 // ========================================
 
 ReactDOM.render(
@@ -17,6 +19,7 @@ ReactDOM.render(
         questions={QUESTIONS}
         topics={TOPICS}
         resulttypes={RESULTTYPES}
+        csv={CSV}
     />,
     document.getElementById('databook')
 );
