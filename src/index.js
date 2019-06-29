@@ -6,7 +6,7 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import DataBook from './databook';
+import DataBook from './DataBook';
 import { QUESTIONS, TOPICS, RESULTTYPES } from './docs/data';
 import './index.css';
 

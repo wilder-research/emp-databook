@@ -20,11 +20,12 @@ $settings["meta_columns"]['Question']     = 3;
 $settings["meta_columns"]['TableSection'] = 4;
 $settings["meta_columns"]['SectionOrder'] = 5;
 $settings["meta_columns"]['RowType']      = 6; //7th column in csv file
+$settings["meta_columns"]['DataColStart'] = 7; //index # for first data column
 
 // change working directory to this script's location
 chdir( dirname ( __FILE__ ) );
 
-// call main function using vars from included settings.php
+// call main function with settings
 read_csv_to_table($settings);
 
 // done, exit
@@ -35,20 +36,18 @@ exit();
 
 function read_csv_to_table($settings=[]) {
 
-  $source       = (string) $settings["source"];
-  $destination  = (string) $settings["destination"];
-  $question_col = (int) $settings["meta_columns"]['Question'];
-  $section_col  = (int) $settings["meta_columns"]['TableSection'];
-  $rowtype_col  = (int) $settings["meta_columns"]['RowType'];
+  $source          = (string) $settings["source"];
+  $destination     = (string) $settings["destination"];
+  $question_col    = (int) $settings["meta_columns"]['Question'];
+  $section_col     = (int) $settings["meta_columns"]['TableSection'];
+  $rowtype_col     = (int) $settings["meta_columns"]['RowType'];
+  $data_cols_start = (int) $settings["meta_columns"]['DataColStart'];
   
-  $data_cols_start = count($settings["meta_columns"]); // index # for first data column
-  
-  $questions    = [];
-  $json_arr     = [];
-  $json         = '';
+  $questions = [];
+  $json_arr  = [];
+  $json      = '';
   
   print "Question col is column: " . $question_col . PHP_EOL;
-  print "# of meta columns: " . count($settings["meta_columns"]) . PHP_EOL;
   print "Data cols start at: " . $data_cols_start . PHP_EOL;
 
   $csv_handle = null;
@@ -64,125 +63,124 @@ function read_csv_to_table($settings=[]) {
     exit("Unable to read source file: {$source} \n");
   }
 
-  // read through the csv data once to build $questions array
-  /*
-  $cell_question = '';
+  // for headers, keep track of previous header and question
+  $prev_header = '';
+  $prev_question = '';
+
+  // keep track of data rows for look-back adding to prev_header / prev_question
+  $curr_data_row = 0;
+  $data_rows = [];
+
   $line_number = 0;
   while (($line = fgetcsv($csv_handle)) !== false) {
+
     $line_number++;
+    
+    // ignore first line (header)
     if ($line_number === 1) {
-      continue; // expect a header row
+      continue;
     }
+    
     // cell value for the Question column 
     $cell_question  = isset($line[$question_col]) ? trim($line[$question_col]) : '';
-    if ($cell_question === '') {
-      continue; // pass if blank
+    // cell value for the Section column 
+    $cell_section  = isset($line[$section_col]) ? trim($line[$section_col]) : '';
+    // cell value for the RowType column 
+    $cell_rowtype  = isset($line[$rowtype_col]) ? trim($line[$rowtype_col]) : '';
+
+    // ignore any lines with empty key columns
+    if ($cell_question === '' || $cell_section === '' || $cell_rowtype === '') {
+      continue;
     }
-    // set array key
-    if (isset($questions[$cell_question])) {
-      continue; // pass if already set
-    } else {
-      $questions[$cell_question] = true; // set to true if keeping in output
+
+    // Title row
+    if ($cell_rowtype === 'Title') {
+      // 1st data col holds title
+      $json_arr[$cell_question]['title'] = trim($line[$data_cols_start]);
     }
+
+    // Label row
+    if ($cell_rowtype === 'Labels') {
+      //add 1st data col plus all non-blank columns to labels
+      for ($i=$data_cols_start; $i < count($line); $i++) {
+        //stop adding labels if blank cell found past first cell
+        if ($i > $data_cols_start && trim($line[$i]) === '') {
+          break;
+        } else {
+          // add to labels array for current question
+          $json_arr[$cell_question]['labels'][] = trim($line[$i]);
+        }
+      }
+    }
+
+    // Header row
+    if ($cell_rowtype === 'Header') {
+      // on each header line, dump any accumulated row data to previous question/header
+      if ($data_rows) {
+        $json_arr[$prev_question]['data'][$prev_header] = $data_rows;
+        //reset curr data rows
+        $data_rows = [];
+      }
+      // set this row as prev header for next lines processed
+      $prev_header = trim($line[$data_cols_start]);
+      $prev_question = trim($line[$question_col]);
+      // reset data rows counter
+      $curr_data_row = 0;
+    }
+
+    // Data row
+    if ($cell_rowtype === 'Data') {
+      for ($i=$data_cols_start; $i < count($line); $i++) {
+        // stop adding data if blank cell found
+        if (trim($line[$i]) === '') {
+          break;
+        } else {
+          // build an array of arrays for data rows specific to preceeding question/header
+          $data_rows[$curr_data_row][] = trim($line[$i]);
+        }
+      }
+      $curr_data_row++;
+    }
+
   } // end while $line = fgetcsv()
-  unset($cell_question, $line_number, $line);
-  
-  // rewind pointer to start of file
-  rewind($csv_handle);
-  */
 
-  //$i = 0;
+  // on file end, dump any accumulated row data to previous question/header
+  if ($data_rows) {
+    $json_arr[$prev_question]['data'][$prev_header] = $data_rows;
+  }
 
-  //foreach ($questions as $question => $keep) {
+  unset($line_number, $line, $cell_question, $cell_section, $cell_rowtype);
 
-    //print "Building Question {$question}.\n";
-    //continue;
+  //$slug = slugify($group['name']);
+  //$output_path = $destination.$slug.'.php';
+  $output_path = $destination;
 
-    $line_number = 0;
-    while (($line = fgetcsv($csv_handle)) !== false) {
-
-      $line_number++;
-      if ($line_number === 1) {
-        continue; // expect a header row
-      }
-      
-      // cell value for the Question column 
-      $cell_question  = isset($line[$question_col]) ? trim($line[$question_col]) : '';
-      // cell value for the Section column 
-      $cell_section  = isset($line[$section_col]) ? trim($line[$section_col]) : '';
-      // cell value for the RowType column 
-      $cell_rowtype  = isset($line[$rowtype_col]) ? trim($line[$rowtype_col]) : '';
-
-      if ($cell_question === '' || $cell_section === '' || $cell_rowtype === '') {
-        continue; // pass if any blank
-      }
-
-      if ($cell_rowtype === 'Title') {
-        $json_arr[$cell_question]['title'] = trim($line[$data_cols_start]); // 1st data col holds titles
-        $json_arr[$cell_question]['rows'][] = $json_arr[$cell_question]['title']; //also add to rows array
-      }
-      if ($cell_rowtype === 'Labels') {
-        $json_arr[$cell_question]['labels'] = ['','x','y','z'];
-        $json_arr[$cell_question]['rows'][] = $json_arr[$cell_question]['labels']; //also add to rows array
-        //TODO: loop through 1st data col plus all additional columns that are not blank to build labels
-      }
-      if ($cell_rowtype === 'Header') {
-        $json_arr[$cell_question]['header'] = trim($line[$data_cols_start]); // 1st data col holds headers
-        $json_arr[$cell_question]['rows'][] = $json_arr[$cell_question]['header']; //also add to rows array
-      }
-      if ($cell_rowtype === 'Data') {
-        $json_arr[$cell_question]['rows'][] = (string) $line[$data_cols_start]; // 1st data col holds labels
-        //TODO: loop through all possible data columns that are not blank to build rows
-      }
-
-    } // end while $line = fgetcsv()
-
-    unset($line_number, $line, $cell_question, $cell_section, $cell_rowtype);
-
-    //$slug = slugify($group['name']);
-    //$output_path = $destination.$slug.'.php';
-    $output_path = $destination;
-
-    if (file_exists($output_path)) {
-      if (!is_writable($output_path)) {
-        exit("Unable to overwrite output file: {$output_path} \n");
-      }
-    } else {
-      if (!touch($output_path)) {
-        exit("Unable to create output file: {$output_path} \n"
-             . "Please make sure the specified output directory exists.\n");
-      }
+  if (file_exists($output_path)) {
+    if (!is_writable($output_path)) {
+      exit("Unable to overwrite output file: {$output_path} \n");
     }
+  } else {
+    if (!touch($output_path)) {
+      exit("Unable to create output file: {$output_path} \n"
+            . "Please make sure the specified output directory exists.\n");
+    }
+  }
 
-    //$json_arr = [1,2,3];
-    //$json = 'export const CSV = ';
-    $json .= try_json_encode($json_arr);
-    //$json .= ';';
+  $json .= try_json_encode($json_arr);
 
-    //$json .= print_r($json_arr, true);
+  // open or create the output file
+  $output_file_handle = fopen($output_path, 'w+');
 
-    // open or create the output file
-    $output_file_handle = fopen($output_path, 'w+');
+  // write out the JSON
+  fwrite($output_file_handle, $json);
 
-    // write out the JSON
-    fwrite($output_file_handle, $json);
+  // close the output file
+  fclose($output_file_handle);
 
-    // close the output file
-    fclose($output_file_handle);
-
-    //$i++;
-
-    print "Done!\n";
-    
-    // rewind pointer to start of file
-    //rewind($csv_handle);
-
-  //} // end foreach
+  print "Done!\n";
 
   // close the source CSV data file
   fclose($csv_handle);
-
-  //print "\nAll done! Profiles are ready in \"{$destination}\". {$i} profiles created.\n";
 
 }
 
