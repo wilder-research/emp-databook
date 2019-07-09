@@ -27,7 +27,7 @@ export default class Datatable extends React.Component {
     //render selected result types for a single question
     const data = this.props.csv[question.value].data;
     return resulttypes.map((resulttype, i) => {
-      if (resulttype.active && data[resulttype.value]) {
+      if (data && resulttype.selected && data[resulttype.value]) {
         const rows = data[resulttype.value];
         return rows.map((row, j) => {
           console.log(row);
@@ -38,6 +38,7 @@ export default class Datatable extends React.Component {
           }</tr>)
         })
       }
+      return null
     });
   }
   

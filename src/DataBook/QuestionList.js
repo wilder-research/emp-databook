@@ -1,9 +1,11 @@
 import React from 'react';
 
+import QuestionHeading from './QuestionHeading';
 import Question from './Question';
 
 //a question list renders all the questions
 export default class QuestionList extends React.Component {
+  
   handleSelectAllVisible = (e) => {
     e.preventDefault();
     this.props.onSelectVisibleQuestions();
@@ -11,13 +13,13 @@ export default class QuestionList extends React.Component {
 
   handleClearAllSelected = (e) => {
     e.preventDefault();
-    this.props.onClearAllSelected();
+    this.props.onClearSelectedQuestions();
   }
 
   renderQuestionsTitle() {
     let activeQuestions = 0;
     this.props.questions.forEach(question => {
-      if (this.shouldRenderQuestion(question)) {
+      if (this.props.shouldShowQuestion(question)) {
         activeQuestions = activeQuestions + 1;
       }
     });
@@ -40,42 +42,39 @@ export default class QuestionList extends React.Component {
     );
     }
   }
-  
-  shouldRenderQuestion(question) {
-    // always include selected questions in the list
-    if (question.active) {
-      return true;
-    // else if there's filter text, only look at that
-    } else if (this.props.filterText !== '') {
-      return !(question.label.toLowerCase().indexOf(this.props.filterText.toLowerCase()) === -1);
-    // else if not filtering, just look at topics
-    } else {
-      return this.props.selectedTopics.includes(question.topic);
-    }
-  }
-
-  renderQuestion(i) {
-    return (<Question
-      key={i}
-      value={this.props.questions[i].value}
-      topic={this.props.questions[i].topic}
-      label={this.props.questions[i].label}
-      active={this.props.questions[i].active}
-      onClick={() => this.props.onClick(i)}
-    />);
-  }
 
   render() {
-    return (
-      <div className="databook__question-list">
-        {this.renderQuestionsTitle()}
-        {/* show each if shouldRenderQuestion(question) */
-          this.props.questions.map((question, index) => {
-            return (this.shouldRenderQuestion(question))
-              ? this.renderQuestion(index)
-              : null;
-          })
+    
+    const rows = [];
+    let lastTopic = null;
+    let topicIndex = -1;
+    this.props.questions.forEach((question, index) => {
+      if (this.props.shouldShowQuestion(question)) {
+        if (question.topic !== lastTopic) {
+          rows.push(
+            <QuestionHeading
+              key={topicIndex}
+              label={question.topic}
+              />
+          );
+          topicIndex--;
         }
+        rows.push(
+          <Question
+          key={index}
+          selected={question.selected}
+          label={question.label}
+          onClick={() => this.props.onClick(index)}
+          />
+          );
+      }
+      lastTopic = question.topic;
+    });
+
+    return (
+      <div className="databook__questionlist">
+        {this.renderQuestionsTitle()}
+        {rows}
       </div>
     );
   }

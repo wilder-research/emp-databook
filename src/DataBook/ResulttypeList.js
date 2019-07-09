@@ -4,7 +4,8 @@ import Resulttype from './Resulttype';
 
 //a resulttype list renders all the resulttypes
 export default class ResulttypeList extends React.Component {
-    renderResulttypesTitle() {
+    
+  renderResulttypesTitle() {
       let activeResulttypes = 0;
       this.props.resulttypes.forEach(resulttype => {
         if (this.shouldRenderResulttype(resulttype)) {
@@ -24,13 +25,13 @@ export default class ResulttypeList extends React.Component {
       //determine which questions are selected
       let questionsSelected = [];
       for (let i = 0; i < this.props.questions.length; i++) {
-        if (this.props.questions[i].active) {
+        if (this.props.questions[i].selected) {
           questionsSelected.push(this.props.questions[i].value);
         }
       }
       //render if any questions are selected, or is active
       if (questionsSelected.length > 0
-        || resulttype.active) {
+        || resulttype.selected) {
         return true;
       } else {
         return false;
@@ -41,7 +42,7 @@ export default class ResulttypeList extends React.Component {
       return (<Resulttype
         key={i}
         label={this.props.resulttypes[i].label}
-        active={this.props.resulttypes[i].active}
+        selected={this.props.resulttypes[i].selected}
         onClick={() => this.props.onClick(i)}
       />);
     }

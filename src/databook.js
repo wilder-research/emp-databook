@@ -2,7 +2,6 @@ import React from 'react';
 
 import Heading from './DataBook/Heading';
 import TopicSelect from './DataBook/TopicSelect';
-//import TopicList from './DataBook/TopicList';
 import QuestionList from './DataBook/QuestionList';
 import ResulttypeList from './DataBook/ResulttypeList';
 import DatatableList from './DataBook/DatatableList';
@@ -12,95 +11,65 @@ import SearchBar from './DataBook/SearchBar';
 export default class DataBook extends React.Component {
   constructor(props) {
     super(props);
+    //set initial state for the databook
     this.state = {
       //store changes to state in .history; an array of objects
       history: [{
-        topics: props.topics,
+        selectedTopics: [],
+        filterText: '',
         questions: props.questions,
         resulttypes: props.resulttypes,
-        filterText: '',
       }],
     };
   }
 
-  handleSearchbarChange(searchval) {
+  handleTopicSelectChange(newValue) {
     //get the current state from history
     const history = this.state.history;
     const current = history[history.length - 1];
-    
-    //set changes into current state
-    current.filterText = searchval;
-    
-    //setState to add to history and update the UI
-    this.setState({ history: history.concat([current]) });
-  }
 
-  handleSearchBarClear() {
-    //get the current state from history
-    const history = this.state.history;
-    const current = history[history.length - 1];
-    
-    //set changes into current state
-    current.filterText = '';
-    
-    //setState to add to history and update the UI
-    this.setState({ history: history.concat([current]) });
-  }
-
-  handleMultiChange(newval) {
-    //get the current state from history
-    const history = this.state.history;
-    const current = history[history.length - 1];
-    
-    let topicsSelected = [];
-    for (let i = 0; i < newval.length; i++) {
-      topicsSelected.push(newval[i].value);
+    let selectedTopics = [];
+    for (let i = 0; i < newValue.length; i++) {
+      selectedTopics.push(newValue[i].value);
     }
-    for (let i = 0; i < current.topics.length; i++) {
-      //set changes into current state
-      current.topics[i].active = (topicsSelected.includes(current.topics[i].value));
-    }
-
-    //setState to add to history and update the UI
-    this.setState({ history: history.concat([current]) });
-  }
-
-  getSelectedTopics() {
-    //get the current state from history
-    const history = this.state.history;
-    const current = history[history.length - 1];
-
-    let value = [];
-    current.topics.forEach(topic => {
-      if (topic.active) {
-        value.push(topic.value);
-      }
-    });
-
-    return value;
-  };
-
-  /*
-  handleTopicClick(i) {
-    //get the current state from history
-    const history = this.state.history;
-    const current = history[history.length - 1];
     
-    //copy topics array from current state
-    const topics = current.topics.slice();
-    //TODO - Toggle topic selected or not for use in filtering
-    topics[i].active = !topics[i].active;
     //set changes into current state
-    current.topics = topics;
+    current.selectedTopics = selectedTopics;
+
+    //setState to add to history and update the UI
+    this.setState({ history: history.concat([current]) });
+  }
+
+  handleSearchbarChange(newValue) {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //set changes into current state
+    current.filterText = newValue;
     
     //setState to add to history and update the UI
     this.setState({ history: history.concat([current]) });
   }
-  */
+
+  shouldShowQuestion(question) {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+
+    // always include selected questions in the list
+    if (question.selected) {
+      return true;
+    // else if there's filter text, only look at that
+    } else if (current.filterText !== '') {
+      return !(question.label.toLowerCase().indexOf(current.filterText.toLowerCase()) === -1);
+    // else if not filtering, just look at topics
+    } else {
+      return current.selectedTopics.includes(question.topic);
+    }
+  }
 
   handleSelectVisibleQuestions() {
-    //TODO: Finish this function
-    //      Track questions.visible separate from questions.active in state
     //get the current state from history
     const history = this.state.history;
     const current = history[history.length - 1];
@@ -108,8 +77,11 @@ export default class DataBook extends React.Component {
     //copy questions array from current state
     const questions = current.questions.slice();
     for (let i = 0; i < current.questions.length; i++) {
-      questions[i].active = true;
+      if (this.shouldShowQuestion(questions[i])) {
+        questions[i].selected = true;
+      }
     }
+
     //set changes into current state
     current.questions = questions;
     
@@ -117,8 +89,7 @@ export default class DataBook extends React.Component {
     this.setState({ history: history.concat([current]) });
   }
 
-  handleClearAllSelected() {
-    //TODO: Finish this function
+  handleClearSelectedQuestions() {
     //get the current state from history
     const history = this.state.history;
     const current = history[history.length - 1];
@@ -126,15 +97,15 @@ export default class DataBook extends React.Component {
     //copy questions array from current state
     const questions = current.questions.slice();
     for (let i = 0; i < current.questions.length; i++) {
-      questions[i].active = false;
+      questions[i].selected = false;
     }
+
     //set changes into current state
     current.questions = questions;
     
     //setState to add to history and update the UI
     this.setState({ history: history.concat([current]) });
   }
-
 
   handleQuestionClick(i) {
     //add this change to history
@@ -144,7 +115,8 @@ export default class DataBook extends React.Component {
     //copy questions array from current state
     const questions = current.questions.slice();
     //Toggle question selected or not
-    questions[i].active = !questions[i].active;
+    questions[i].selected = !questions[i].selected;
+    
     //set changes into current state
     current.questions = questions;
     
@@ -160,7 +132,8 @@ export default class DataBook extends React.Component {
     //copy topics array from current state
     const resulttypes = current.resulttypes.slice();
     //Toggle result type selected or not
-    resulttypes[i].active = !resulttypes[i].active;
+    resulttypes[i].selected = !resulttypes[i].selected;
+    
     //set changes into current state
     current.resulttypes = resulttypes;
     
@@ -178,29 +151,22 @@ export default class DataBook extends React.Component {
         <Heading />
         <div className="databook__selections">
           <TopicSelect
-            options={current.topics}
-            selectedTopics={this.getSelectedTopics()}
-            onChange={(newval) => this.handleMultiChange(newval)}
+            selectedTopics={current.selectedTopics}
+            options={this.props.topics}
+            onChange={(newValue) => this.handleTopicSelectChange(newValue)}
           />
           <SearchBar
             filterText={current.filterText}
-            onChange={(searchval) => this.handleSearchbarChange(searchval)}
-            onClear={() => this.handleSearchBarClear()}
+            onChange={(newValue) => this.handleSearchbarChange(newValue)}
           />
-          {/*
-          <TopicList
-            topics={current.topics}
-            onClick={(i) => this.handleTopicClick(i)}
-          />
-          */}
           <QuestionList
-            questions={current.questions}
-            topics={current.topics}
-            selectedTopics={this.getSelectedTopics()}
+            selectedTopics={current.selectedTopics}
             filterText={current.filterText}
+            questions={current.questions}
+            shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
             onClick={(i) => this.handleQuestionClick(i)}
             onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
-            onClearAllSelected={() => this.handleClearAllSelected()}
+            onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
           />
           <ResulttypeList
             resulttypes={current.resulttypes}

@@ -10,8 +10,8 @@ export default class DatatableList extends React.Component {
   //csv={this.props.csv}
 
   shouldRenderDatatable(question) {
-    //this question active and result types
-    if (question.active) {
+    //this question selected and result types
+    if (question.selected) {
       return true;
     } else {
       return false;
@@ -29,7 +29,7 @@ export default class DatatableList extends React.Component {
     //any result types selected
     let activeResulttypes = 0;
     this.props.resulttypes.forEach(resulttype => {
-      if (resulttype.active) {
+      if (resulttype.selected) {
         activeResulttypes = activeResulttypes + 1;
       }
     });

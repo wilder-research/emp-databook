@@ -43,13 +43,6 @@ body {
     background: #ffffff;
 }
 
-/*
-.databook__topic {}
-.databook__topic--checked {}
-.databook__topic--unchecked {}
-.databook__topiclist {}
-*/
-
 .databook__search-bar {
     padding: 10px;
     margin: 0;
@@ -72,10 +65,15 @@ body {
     vertical-align: super;
 }
 
-.databook__question-list {
+.databook__questionlist {
     padding: 10px;
     margin: 30px 0;
     border: solid 1px #cccccc;
+}
+
+.databook__questionlist-header {
+    margin: 10px 0 0 0;
+    font-weight: 700;
 }
 
 .databook__question {
