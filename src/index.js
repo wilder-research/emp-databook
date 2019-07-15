@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 
 import DataBook from './DataBook';
 import { QUESTIONS, TOPICS, RESULTTYPES } from './docs/data';
+import 'normalize.css';
 import './index.css';
 
 let CSV = require('./docs/csv.json');

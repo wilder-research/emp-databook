@@ -15,11 +15,11 @@ export default class TopicSelect extends React.Component {
 
   render() {
     return (
-      <div className="databook__topic-select">
-        <p>Add or remove filters to focus list questions by topic: ({this.props.selectedTopics.length} selected)</p>
+      <div className="TopicSelect">
+        <p>Find questions by topic ({this.props.selectedTopics.length} selected)</p>
         <Select
           isMulti
-          placeholder="Find questions by topic..."
+          placeholder="Select topic(s)..."
           onChange={this.handleChange}
           options={this.props.options}
         />

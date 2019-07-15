@@ -1,39 +1,47 @@
 import React from 'react';
 
 //a question can be selected or not
-export default class Datatable extends React.Component {
+export default class DataTable extends React.Component {
   //props passed:
   //key={i}
   //question={this.props.questions[i]}
   //resulttypes={this.props.resulttypes}
   //csv={this.props.csv}
   
-  renderDatatableTitle(question) {
+  renderDataTableTitle(question) {
     return (<p>{question.label}</p>);
   }
 
-  renderDatatableHeaderRow(question) {
+  renderDataTableHeaderRow(question) {
     const labels = this.props.csv[question.value].labels;
     return (
       <thead><tr>
         {labels.map((label, k) => {
-          return (<td key={k}>{label}</td>)
+          return (<th key={k}>{label}</th>)
         })}
       </tr></thead>
     );
   }
 
-  renderDatatableRows(question, resulttypes) {
+  renderCell(i, cell) {
+    if(i === 0) {
+      return <th key={i}>{cell}</th>;
+    } else {
+      return <td key={i}>{cell}</td>;
+    }
+  }
+
+  renderDataTableRows(question, resulttypes) {
     //render selected result types for a single question
     const data = this.props.csv[question.value].data;
     return resulttypes.map((resulttype, i) => {
       if (data && resulttype.selected && data[resulttype.value]) {
         const rows = data[resulttype.value];
         return rows.map((row, j) => {
-          console.log(row);
+          console.log(resulttype.value, row);
           return (<tr key={j}>{
             row.map((cell, k) => {
-              return (<td key={k}>{cell}</td>)
+              return this.renderCell(k, cell);
             })
           }</tr>)
         })
@@ -42,7 +50,7 @@ export default class Datatable extends React.Component {
     });
   }
   
-  renderDatatableForQuestion(question) {
+  renderDataTableForQuestion(question) {
     let result = [];
 
     const data = this.props.csv[question.value].data;
@@ -56,8 +64,10 @@ export default class Datatable extends React.Component {
         row.map((cell) => {
           rowString += cell + ' ';
           //console.log (cell);
+          return null;
         });
         rowString += '<br>';
+        return null;
       })
       result.push('' + rowString + '<br>');
     }
@@ -71,12 +81,12 @@ export default class Datatable extends React.Component {
 
   render () {
     return (
-      <div className="databook__datatable">
-        {this.renderDatatableTitle(this.props.question)}
-        <table className="databook__table">
-          {this.renderDatatableHeaderRow(this.props.question)}
+      <div className="DataTable">
+        {this.renderDataTableTitle(this.props.question)}
+        <table className="table">
+          {this.renderDataTableHeaderRow(this.props.question)}
           <tbody>
-            {this.renderDatatableRows(this.props.question,this.props.resulttypes)}
+            {this.renderDataTableRows(this.props.question,this.props.resulttypes)}
           </tbody>
         </table>
       </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Heading from './DataBook/Heading';
+import Intro from './DataBook/Intro';
 import TopicSelect from './DataBook/TopicSelect';
 import QuestionList from './DataBook/QuestionList';
-import ResulttypeList from './DataBook/ResulttypeList';
-import DatatableList from './DataBook/DatatableList';
-import SearchBar from './DataBook/SearchBar';
+import ResultTypeList from './DataBook/ResultTypeList';
+import DataTableList from './DataBook/DataTableList';
+import FilterText from './DataBook/FilterText';
 
 //the databook is the top level component
 export default class DataBook extends React.Component {
@@ -40,7 +40,7 @@ export default class DataBook extends React.Component {
     this.setState({ history: history.concat([current]) });
   }
 
-  handleSearchbarChange(newValue) {
+  handleFilterTextChange(newValue) {
     //get the current state from history
     const history = this.state.history;
     const current = history[history.length - 1];
@@ -124,7 +124,7 @@ export default class DataBook extends React.Component {
     this.setState({ history: history.concat([current]) });
   }
 
-  handleResulttypeClick(i) {
+  handleResultTypeClick(i) {
     //get the current state from history
     const history = this.state.history;
     const current = history[history.length - 1];
@@ -147,40 +147,41 @@ export default class DataBook extends React.Component {
     const current = history[history.length - 1];
 
     return (
-      <div className="databook">
-        <Heading />
-        <div className="databook__selections">
+      <div className="DataBook">
+        <Intro />
+        <div className="SectionTitle">Select the result types you want to see:</div>
+        <ResultTypeList
+          resulttypes={current.resulttypes}
+          questions={current.questions}
+          onClick={(i) => this.handleResultTypeClick(i)}
+        />
+        <div className="SectionTitle">Select which questions you want to view:</div>
+        <div className="QuestionFilters">
           <TopicSelect
             selectedTopics={current.selectedTopics}
             options={this.props.topics}
             onChange={(newValue) => this.handleTopicSelectChange(newValue)}
           />
-          <SearchBar
+          <FilterText
             filterText={current.filterText}
-            onChange={(newValue) => this.handleSearchbarChange(newValue)}
-          />
-          <QuestionList
-            selectedTopics={current.selectedTopics}
-            filterText={current.filterText}
-            questions={current.questions}
-            shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
-            onClick={(i) => this.handleQuestionClick(i)}
-            onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
-            onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
-          />
-          <ResulttypeList
-            resulttypes={current.resulttypes}
-            questions={current.questions}
-            onClick={(i) => this.handleResulttypeClick(i)}
+            onChange={(newValue) => this.handleFilterTextChange(newValue)}
           />
         </div>
-        <div className="databook__results">
-          <DatatableList
-            questions={current.questions}
-            resulttypes={current.resulttypes}
-            csv={this.props.csv}
-          />
-        </div>
+        <QuestionList
+          selectedTopics={current.selectedTopics}
+          filterText={current.filterText}
+          questions={current.questions}
+          shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
+          onClick={(i) => this.handleQuestionClick(i)}
+          onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
+          onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
+        />
+        <div className="SectionTitle">View your selected data tables:</div>
+        <DataTableList
+          questions={current.questions}
+          resulttypes={current.resulttypes}
+          csv={this.props.csv}
+        />
       </div>
     );
   }

@@ -1,66 +1,70 @@
 import React from 'react';
 
-import Datatable from './Datatable';
+import TopicHeading from './TopicHeading';
+import DataTable from './DataTable';
 
 //a datatable list renders all the datatable outputs
-export default class DatatableList extends React.Component {
+export default class DataTableList extends React.Component {
   //props passed:
   //questions={current.questions}
   //resulttypes={current.resulttypes}
   //csv={this.props.csv}
 
-  shouldRenderDatatable(question) {
-    //this question selected and result types
-    if (question.selected) {
+  shouldRenderDataTableForQuestion(question) {
+    //any result types selected
+    let activeResultTypes = 0;
+    this.props.resulttypes.forEach(resulttype => {
+      if (resulttype.selected) {
+        activeResultTypes++;
+      }
+    });
+
+    //is this question is selected and resulttypes are selected
+    //TODO: check if selected resulttypes exist in this question's data
+    if (question.selected && activeResultTypes > 0) {
       return true;
     } else {
       return false;
     }
   }
 
-  shouldRenderAny() {
-    //any questions selected
-    let activeQuestions = 0;
-    this.props.questions.forEach(question => {
-      if (this.shouldRenderDatatable(question)) {
-        activeQuestions = activeQuestions + 1;
-      }
-    });
-    //any result types selected
-    let activeResulttypes = 0;
-    this.props.resulttypes.forEach(resulttype => {
-      if (resulttype.selected) {
-        activeResulttypes = activeResulttypes + 1;
-      }
-    });
-    return ((activeQuestions > 0) && (activeResulttypes > 0));
-  }
-
-  renderDatatablesTitle() {
-    return (<p>View or download your data tables:</p>);
-  }
-  
-  renderDatatable(i) {
-    return (<Datatable
-      key={i}
-      question={this.props.questions[i]}
-      resulttypes={this.props.resulttypes}
-      csv={this.props.csv}
-    />);
-  }
-
   render() {
-    if (!this.shouldRenderAny()) {
-      return null;
+    let title = null;
+    const rows = [];
+    let lastTopic = null;
+    let topicIndex = -1;
+    this.props.questions.forEach((question, index) => {
+      if (this.shouldRenderDataTableForQuestion(question)) {
+        if (question.topic !== lastTopic) {
+          console.log(question.topic, lastTopic);
+          rows.push(
+            <TopicHeading
+              key={topicIndex}
+              label={question.topic}
+              />
+          );
+          topicIndex--;
+        }
+        rows.push(
+          <DataTable
+            key={index}
+            question={question}
+            resulttypes={this.props.resulttypes}
+            csv={this.props.csv}
+          />
+        );
+        lastTopic = question.topic;
+      }
+    });
+
+    if(rows.length === 0) {
+      title = <div className="DataTables__Placeholder">Select at least one result type and question above.</div>;
     }
+
     return (
-      <div className="databook__datatable-list">
-        {this.renderDatatablesTitle()}
-        {this.props.questions.map((question, index) => {
-          return (this.shouldRenderDatatable(question))
-              ? this.renderDatatable(index)
-              : null;
-        })}
+      <div className="DataTables">
+        {title}
+        {rows}
       </div>
     );
   }

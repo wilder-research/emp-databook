@@ -1,6 +1,6 @@
 import React from 'react';
 
-import QuestionHeading from './QuestionHeading';
+import TopicHeading from './TopicHeading';
 import Question from './Question';
 
 //a question list renders all the questions
@@ -26,25 +26,24 @@ export default class QuestionList extends React.Component {
     if (activeQuestions > 0) {
       return (
         <div>
-          <p>Select the questions you'd like to view data for: (showing {activeQuestions} of {this.props.questions.length})</p>
+          <p>Showing {activeQuestions} of {this.props.questions.length} questions</p>
           <div>
             <button type="button" onClick={this.handleSelectAllVisible}>select all below</button>
             &nbsp; &nbsp;
-            <button type="button" onClick={this.handleClearAllSelected}>clear selections</button>
+            <button type="button" onClick={this.handleClearAllSelected}>clear all selected</button>
           </div>
         </div>
       );
     } else {
       return (
         <div>
-          <p>No questions match your current filters.</p>
+          <div className="QuestionList__Placeholder">Select topic(s) or search above to find questions.</div>
         </div>
     );
     }
   }
 
   render() {
-    
     const rows = [];
     let lastTopic = null;
     let topicIndex = -1;
@@ -52,7 +51,7 @@ export default class QuestionList extends React.Component {
       if (this.props.shouldShowQuestion(question)) {
         if (question.topic !== lastTopic) {
           rows.push(
-            <QuestionHeading
+            <TopicHeading
               key={topicIndex}
               label={question.topic}
               />
@@ -67,12 +66,12 @@ export default class QuestionList extends React.Component {
           onClick={() => this.props.onClick(index)}
           />
           );
+        lastTopic = question.topic;
       }
-      lastTopic = question.topic;
     });
 
     return (
-      <div className="databook__questionlist">
+      <div className="QuestionList">
         {this.renderQuestionsTitle()}
         {rows}
       </div>

@@ -1,64 +1,70 @@
 import React from 'react';
 
-import Resulttype from './Resulttype';
+import ResultType from './ResultType';
 
 //a resulttype list renders all the resulttypes
-export default class ResulttypeList extends React.Component {
-    
-  renderResulttypesTitle() {
-      let activeResulttypes = 0;
-      this.props.resulttypes.forEach(resulttype => {
-        if (this.shouldRenderResulttype(resulttype)) {
-          activeResulttypes = activeResulttypes + 1;
-        }
-      });
-      if (activeResulttypes > 0) {
-        return (
-          <p>Result types available for your selected question(s): &nbsp;
-          <small><em>{'('}your data tables will appear below{')'}</em></small>
-          </p>
-        );
+export default class ResultTypeList extends React.Component {
+
+  renderResultTypesTitle() {
+    let activeResultTypes = 0;
+    this.props.resulttypes.forEach(resulttype => {
+      if (this.shouldRenderResultType(resulttype)) {
+        activeResultTypes = activeResultTypes + 1;
       }
-    }
-  
-    shouldRenderResulttype(resulttype) {
-      //determine which questions are selected
-      let questionsSelected = [];
-      for (let i = 0; i < this.props.questions.length; i++) {
-        if (this.props.questions[i].selected) {
-          questionsSelected.push(this.props.questions[i].value);
-        }
-      }
-      //render if any questions are selected, or is active
-      if (questionsSelected.length > 0
-        || resulttype.selected) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  
-    renderResulttype(i) {
-      return (<Resulttype
-        key={i}
-        label={this.props.resulttypes[i].label}
-        selected={this.props.resulttypes[i].selected}
-        onClick={() => this.props.onClick(i)}
-      />);
-    }
-  
-    render() {
+    });
+    if (activeResultTypes > 0) {
       return (
-        <div className="databook__resulttype-list">
-          {this.renderResulttypesTitle()}
-          {/* show each if shouldRenderResulttype(resulttype)  */
-            this.props.resulttypes.map((resulttype, index) => {
-              return (this.shouldRenderResulttype(resulttype))
-                ? this.renderResulttype(index)
-                : null;
-            })
-          }
-        </div>
+        
+        <p>Result types available for your selected question(s): &nbsp;
+        <small><em>{'('}your data tables will appear below{')'}</em></small>
+        </p>
       );
     }
   }
+
+  shouldRenderResultType(resulttype) {
+    /*
+    //determine which questions are selected
+    let questionsSelected = [];
+    for (let i = 0; i < this.props.questions.length; i++) {
+      if (this.props.questions[i].selected) {
+        questionsSelected.push(this.props.questions[i].value);
+      }
+    }
+    //render if any questions are selected, or is active
+    if (questionsSelected.length > 0
+      || resulttype.selected) {
+      return true;
+    } else {
+      return false;
+    }
+    */
+    return true;
+  }
+
+  renderResultType(i) {
+    return (<ResultType
+      key={i}
+      label={this.props.resulttypes[i].label}
+      selected={this.props.resulttypes[i].selected}
+      onClick={() => this.props.onClick(i)}
+    />);
+  }
+
+  render() {
+    return (
+      <div className="ResultTypeList">
+        {/* this.renderResultTypesTitle() */}
+        <p>Each table in the data book breaks out the survey results by the following groups:<br/>
+          <em><small>(Click or tap to change selections.)</small></em></p>
+        {/* show each if shouldRenderResultType(resulttype)  */
+          this.props.resulttypes.map((resulttype, index) => {
+            return (this.shouldRenderResultType(resulttype))
+              ? this.renderResultType(index)
+              : null;
+          })
+        }
+      </div>
+    );
+  }
+}
