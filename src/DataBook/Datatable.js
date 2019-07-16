@@ -7,10 +7,6 @@ export default class DataTable extends React.Component {
   //question={this.props.questions[i]}
   //resulttypes={this.props.resulttypes}
   //csv={this.props.csv}
-  
-  renderDataTableTitle(question) {
-    return (<p>{question.label}</p>);
-  }
 
   renderDataTableHeaderRow(question) {
     const labels = this.props.csv[question.value].labels;
@@ -32,57 +28,42 @@ export default class DataTable extends React.Component {
   }
 
   renderDataTableRows(question, resulttypes) {
-    //render selected result types for a single question
+    //render data rows for all selected result types for a single question
+    const labels = this.props.csv[question.value].labels;
     const data = this.props.csv[question.value].data;
-    return resulttypes.map((resulttype, i) => {
+    const rows = [];
+    resulttypes.forEach((resulttype, index) => {
       if (data && resulttype.selected && data[resulttype.value]) {
-        const rows = data[resulttype.value];
-        return rows.map((row, j) => {
-          console.log(resulttype.value, row);
-          return (<tr key={j}>{
-            row.map((cell, k) => {
-              return this.renderCell(k, cell);
-            })
-          }</tr>)
-        })
-      }
-      return null
-    });
-  }
-  
-  renderDataTableForQuestion(question) {
-    let result = [];
-
-    const data = this.props.csv[question.value].data;
-
-    //TODO: Only display the selected Result Types
-    for (let [type, rows] of Object.entries(data)) {
-      let rowString = type;
-      rowString += '<br>';
-      //console.log(type, rows);
-      rows.map((row) => {
-        row.map((cell) => {
-          rowString += cell + ' ';
-          //console.log (cell);
-          return null;
+        rows.push(
+          <tr
+            key={resulttype.value}
+            className="rowgroup"
+            >
+              <th colSpan={labels.length}>{resulttype.value}</th>
+            </tr>
+        );
+        data[resulttype.value].forEach((row, index) => {
+          rows.push(
+            <tr
+              key={resulttype.value + '-' + index}
+              >
+                {
+                  row.map((cell, i) => {
+                    return this.renderCell(i, cell);
+                  })
+                }
+              </tr>
+          );
         });
-        rowString += '<br>';
-        return null;
-      })
-      result.push('' + rowString + '<br>');
-    }
-
-    return (<div>{
-      result.map((item, index) => {
-        return (<div key={index}>{item}</div>);
-      })}</div>
-    );
+      }
+    });
+    return rows;
   }
 
   render () {
     return (
       <div className="DataTable">
-        {this.renderDataTableTitle(this.props.question)}
+        <p>{this.props.question.label}</p>
         <table className="table">
           {this.renderDataTableHeaderRow(this.props.question)}
           <tbody>
