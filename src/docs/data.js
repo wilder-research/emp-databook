@@ -149,12 +149,12 @@ export const TOPICS = topic_vals.map((val) => {
 
 //list of result types available in data set
 export const RESULTTYPES = [
-  { selected: true, value: 'Results by region:', label: 'Results by region' },
-  { selected: true, value: 'Results by gender:', label: 'Results by gender' },
-  { selected: true, value: 'Results by age:', label: 'Results by age' },
-  { selected: true, value: 'Results by education level:', label: 'Results by education level' },
-  { selected: true, value: 'Results by household income:', label: 'Results by household income' },
-  { selected: true, value: 'Results by housing status:', label: 'Results by housing status' },
-  { selected: true, value: 'Results by home language:', label: 'Results by home language' },
-  { selected: true, value: 'Results by race/ethnicity:', label: 'Results by race/ethnicity' },
+  { selected: true, value: 'Results by region:', label: 'By region' },
+  { selected: true, value: 'Results by gender:', label: 'By gender' },
+  { selected: true, value: 'Results by age:', label: 'By age' },
+  { selected: true, value: 'Results by education level:', label: 'By education level' },
+  { selected: true, value: 'Results by household income:', label: 'By household income' },
+  { selected: true, value: 'Results by housing status:', label: 'By housing status' },
+  { selected: true, value: 'Results by home language:', label: 'By home language' },
+  { selected: true, value: 'Results by race/ethnicity:', label: 'By race/ethnicity' },
 ];

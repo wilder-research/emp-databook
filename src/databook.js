@@ -156,26 +156,28 @@ export default class DataBook extends React.Component {
           onClick={(i) => this.handleResultTypeClick(i)}
         />
         <div className="SectionTitle">Select which questions you want to view:</div>
-        <div className="QuestionFilters">
-          <TopicSelect
+        <div className="Questions">
+          <div className="QuestionFilters">
+            <TopicSelect
+              selectedTopics={current.selectedTopics}
+              options={this.props.topics}
+              onChange={(newValue) => this.handleTopicSelectChange(newValue)}
+            />
+            <FilterText
+              filterText={current.filterText}
+              onChange={(newValue) => this.handleFilterTextChange(newValue)}
+            />
+          </div>
+          <QuestionList
             selectedTopics={current.selectedTopics}
-            options={this.props.topics}
-            onChange={(newValue) => this.handleTopicSelectChange(newValue)}
-          />
-          <FilterText
             filterText={current.filterText}
-            onChange={(newValue) => this.handleFilterTextChange(newValue)}
+            questions={current.questions}
+            shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
+            onClick={(i) => this.handleQuestionClick(i)}
+            onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
+            onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
           />
         </div>
-        <QuestionList
-          selectedTopics={current.selectedTopics}
-          filterText={current.filterText}
-          questions={current.questions}
-          shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
-          onClick={(i) => this.handleQuestionClick(i)}
-          onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
-          onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
-        />
         <div className="SectionTitle">View your selected data tables:</div>
         <DataTableList
           questions={current.questions}
