@@ -58,7 +58,7 @@ export default class DataTableList extends React.Component {
     });
 
     if(rows.length === 0) {
-      title = <div className="DataTables__Placeholder">Select at least one result type and question above.</div>;
+      title = <div className="DataTables__Placeholder">(Select at least one result type and question to view data.)</div>;
     }
 
     return (

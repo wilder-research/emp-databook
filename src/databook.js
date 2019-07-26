@@ -15,10 +15,10 @@ export default class DataBook extends React.Component {
     this.state = {
       //store changes to state in .history; an array of objects
       history: [{
+        resulttypes: props.resulttypes,
         selectedTopics: [],
         filterText: '',
         questions: props.questions,
-        resulttypes: props.resulttypes,
       }],
     };
   }
@@ -32,6 +32,8 @@ export default class DataBook extends React.Component {
     for (let i = 0; i < newValue.length; i++) {
       selectedTopics.push(newValue[i].value);
     }
+
+    console.log(`Options selected:`, newValue);
     
     //set changes into current state
     current.selectedTopics = selectedTopics;
@@ -39,6 +41,25 @@ export default class DataBook extends React.Component {
     //setState to add to history and update the UI
     this.setState({ history: history.concat([current]) });
   }
+
+  handleSelectAllTopics() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    let selectedTopics = [];
+    for (let i = 0; i < this.props.topics.length; i++) {
+      selectedTopics.push(this.props.topics[i].value);
+    }
+    
+    //set changes into current state
+    current.selectedTopics = selectedTopics;
+    
+    //setState to update the UI
+    this.setState({ history: history.concat([current]) });
+  }
+
 
   handleFilterTextChange(newValue) {
     //get the current state from history
@@ -141,6 +162,44 @@ export default class DataBook extends React.Component {
     this.setState({ history: history.concat([current]) });
   }
 
+  handleSelectAllResultTypes() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    const resulttypes = current.resulttypes.slice();
+    
+    for (let i = 0; i < current.resulttypes.length; i++) {
+      resulttypes[i].selected = true;
+    }
+    
+    //set changes into current state
+    current.resulttypes = resulttypes;
+    
+    //setState to update the UI
+    this.setState({ history: history.concat([current]) });
+  }
+
+  handleClearSelectedResultTypes() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    const resulttypes = current.resulttypes.slice();
+    
+    for (let i = 0; i < current.resulttypes.length; i++) {
+      resulttypes[i].selected = false;
+    }
+    
+    //set changes into current state
+    current.resulttypes = resulttypes;
+    
+    //setState to update the UI
+    this.setState({ history: history.concat([current]) });
+  }
+
   render() {
     //get the current state from history
     const history = this.state.history;
@@ -154,6 +213,8 @@ export default class DataBook extends React.Component {
           resulttypes={current.resulttypes}
           questions={current.questions}
           onClick={(i) => this.handleResultTypeClick(i)}
+          onSelectAllResultTypes={() => this.handleSelectAllResultTypes()}
+          onClearSelectedResultTypes={() => this.handleClearSelectedResultTypes()}
         />
         <div className="SectionTitle">Select which questions you want to view:</div>
         <div className="Questions">
@@ -162,6 +223,7 @@ export default class DataBook extends React.Component {
               selectedTopics={current.selectedTopics}
               options={this.props.topics}
               onChange={(newValue) => this.handleTopicSelectChange(newValue)}
+              onSelectAllTopics={() => this.handleSelectAllTopics()}
             />
             <FilterText
               filterText={current.filterText}

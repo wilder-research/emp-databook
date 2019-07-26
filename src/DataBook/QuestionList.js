@@ -25,19 +25,15 @@ export default class QuestionList extends React.Component {
     });
     if (activeQuestions > 0) {
       return (
-        <div>
-          <p>Showing {activeQuestions} of {this.props.questions.length} questions</p>
-          <div>
-            <button type="button" onClick={this.handleSelectAllVisible}>select all below</button>
-            &nbsp; &nbsp;
-            <button type="button" onClick={this.handleClearAllSelected}>clear all selected</button>
-          </div>
+        <div>Showing {activeQuestions} of {this.props.questions.length} questions
+          <button type="button" className="Button__Link" onClick={this.handleSelectAllVisible}>select all</button>
+          <button type="button" className="Button__Link" onClick={this.handleClearAllSelected}>clear</button>
         </div>
       );
     } else {
       return (
         <div>
-          <div className="QuestionList__Placeholder">Select topic(s) or search above to find questions.</div>
+          <div className="QuestionList__Placeholder">(Select topic(s) or search above to find questions.)</div>
         </div>
     );
     }

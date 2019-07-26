@@ -13,10 +13,17 @@ export default class TopicSelect extends React.Component {
     this.props.onChange(newValue);
   };
 
+  handleSelectAll = (e) => {
+    e.preventDefault();
+    this.props.onSelectAllTopics();
+  }
+
   render() {
     return (
       <div className="TopicSelect">
-        <p>Find questions by topic ({this.props.selectedTopics.length} selected)</p>
+        <p>Find questions by topic ({this.props.selectedTopics.length} selected)
+          {/*<button type="button" className="Button__Link" onClick={this.handleSelectAll}>select all</button>*/}
+          </p>
         <Select
           isMulti
           placeholder="Select topic(s)..."

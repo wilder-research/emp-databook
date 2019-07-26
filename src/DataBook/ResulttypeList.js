@@ -5,6 +5,16 @@ import ResultType from './ResultType';
 //a resulttype list renders all the resulttypes
 export default class ResultTypeList extends React.Component {
 
+  handleSelectAll = (e) => {
+    e.preventDefault();
+    this.props.onSelectAllResultTypes();
+  }
+
+  handleClearAllSelected = (e) => {
+    e.preventDefault();
+    this.props.onClearSelectedResultTypes();
+  }
+
   renderResultTypesTitle() {
     let activeResultTypes = 0;
     this.props.resulttypes.forEach(resulttype => {
@@ -16,7 +26,7 @@ export default class ResultTypeList extends React.Component {
       return (
         
         <p>Result types available for your selected question(s): &nbsp;
-        <small><em>{'('}your data tables will appear below{')'}</em></small>
+          <small><em>(your data tables will appear below)</em></small>
         </p>
       );
     }
@@ -55,8 +65,10 @@ export default class ResultTypeList extends React.Component {
     return (
       <div className="ResultTypeList">
         {/* this.renderResultTypesTitle() */}
-        <p>Each table in the data book breaks out the survey results by the following groups:<br/>
-          <em><small>(Click or tap to change selections.)</small></em></p>
+        <p>Each table in the data book breaks out the survey results by the following groups:
+          <button type="button" className="Button__Link" onClick={this.handleSelectAll}>select all</button>
+          <button type="button" className="Button__Link" onClick={this.handleClearAllSelected}>clear all</button>
+        </p>
         {/* show each if shouldRenderResultType(resulttype)  */
           this.props.resulttypes.map((resulttype, index) => {
             return (this.shouldRenderResultType(resulttype))
