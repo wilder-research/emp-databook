@@ -157,5 +157,5 @@ export const RESULTTYPES = [
   { selected: false, value: 'Results by housing status:', label: 'By housing status' },
   { selected: false, value: 'Results by home language:', label: 'By home language' },
   { selected: false, value: 'Results by race/ethnicity:', label: 'By race/ethnicity' },
-  { selected: false, value: 'Text responses:', label: 'Text responses' },
+  { selected: true, value: 'Text responses:', label: 'Text responses (*not grouped*)' },
 ];

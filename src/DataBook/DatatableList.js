@@ -11,20 +11,24 @@ export default class DataTableList extends React.Component {
   //csv={this.props.csv}
 
   shouldRenderDataTableForQuestion(question) {
-    //any result types selected
-    let activeResultTypes = 0;
-    this.props.resulttypes.forEach(resulttype => {
-      if (resulttype.selected) {
-        activeResultTypes++;
-      }
-    });
-
-    //is this question is selected and resulttypes are selected
-    //TODO: check if selected resulttypes exist in this question's data
-    if (question.selected && activeResultTypes > 0) {
-      return true;
-    } else {
+    if (!question.selected || !question.value) {
       return false;
+    }
+
+    const q = this.props.csv[question.value];
+    if (!q) {
+      return false;
+    }
+
+    const data = this.props.csv[question.value].data;
+    if (!data) {
+      return false;
+    }
+
+    for (let i = 0; i < this.props.resulttypes.length; i++) {
+      if (this.props.resulttypes[i].selected && data[this.props.resulttypes[i].value]) {
+        return true;
+      }
     }
   }
 
@@ -36,7 +40,6 @@ export default class DataTableList extends React.Component {
     this.props.questions.forEach((question, index) => {
       if (this.shouldRenderDataTableForQuestion(question)) {
         if (question.topic !== lastTopic) {
-          console.log(question.topic, lastTopic);
           rows.push(
             <TopicHeading
               key={topicIndex}
@@ -58,7 +61,7 @@ export default class DataTableList extends React.Component {
     });
 
     if(rows.length === 0) {
-      title = <div className="DataTables__Placeholder">(Select at least one result type and question to view data.)</div>;
+      title = <div className="DataTables__Placeholder">(Select result types and questions above to generate data tables.)</div>;
     }
 
     return (
