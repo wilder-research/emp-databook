@@ -24,7 +24,6 @@ export default class ResultTypeList extends React.Component {
     });
     if (activeResultTypes > 0) {
       return (
-        
         <p>Result types available for your selected question(s): &nbsp;
           <small><em>(your data tables will appear below)</em></small>
         </p>
@@ -63,19 +62,21 @@ export default class ResultTypeList extends React.Component {
 
   render() {
     return (
-      <div className="ResultTypeList">
-        {/* this.renderResultTypesTitle() */}
-        <p>Each table in the data book breaks out the survey results by the following groups:
+      <div>
+        <p>Start building your tables by selecting the data you want to see.
           <button type="button" className="Button__Link" onClick={this.handleSelectAll}>select all</button>
-          <button type="button" className="Button__Link" onClick={this.handleClearAllSelected}>clear all</button>
+          <button type="button" className="Button__Link" onClick={this.handleClearAllSelected}>clear</button>
         </p>
-        {/* show each if shouldRenderResultType(resulttype)  */
-          this.props.resulttypes.map((resulttype, index) => {
-            return (this.shouldRenderResultType(resulttype))
-              ? this.renderResultType(index)
-              : null;
-          })
-        }
+        <div className="ResultTypeList">
+          {/* this.renderResultTypesTitle() */}
+          {/* show each if shouldRenderResultType(resulttype)  */
+            this.props.resulttypes.map((resulttype, index) => {
+              return (this.shouldRenderResultType(resulttype))
+                ? this.renderResultType(index)
+                : null;
+            })
+          }
+        </div>
       </div>
     );
   }

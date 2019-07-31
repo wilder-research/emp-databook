@@ -12,7 +12,8 @@ export default class TopicSelect extends React.Component {
   render() {
     return (
       <div className="TopicSelect">
-        <p>Find questions by topic ({this.props.selectedTopics.length} selected)</p>
+        {/* <p>Find questions by topic ({this.props.selectedTopics.length} selected)</p> */}
+        <p>Find questions by topic</p>
         <Select
           isMulti
           placeholder="Select topic(s)..."

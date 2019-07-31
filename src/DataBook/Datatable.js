@@ -1,4 +1,5 @@
 import React from 'react';
+import { CSVLink } from "react-csv";
 
 //a question can be selected or not
 export default class DataTable extends React.Component {
@@ -61,15 +62,72 @@ export default class DataTable extends React.Component {
   }
 
   render () {
+
+    const labels = this.props.csv[this.props.question.value].labels;
+    const header = [];
+    const csvHeader = [labels];
+    header.push(
+      <tr key="header-row">
+        {
+          labels.map((label, k) => {
+            return <th key={k}>{label}</th>
+          })
+        }
+      </tr>
+    );
+
+    const data = this.props.csv[this.props.question.value].data;
+    const rows = [];
+    const csvRows = [];
+    this.props.resulttypes.forEach((resulttype, i) => {
+      if (data && resulttype.selected && data[resulttype.value]) {
+        rows.push(
+          <tr
+          key={resulttype.value}
+          className="rowgroup"
+          >
+              <th colSpan={labels.length}>{resulttype.value}</th>
+            </tr>
+        );
+        csvRows.push([resulttype.value]);
+        data[resulttype.value].forEach((row, j) => {
+          rows.push(
+            <tr
+              key={resulttype.value + '-' + j}
+              >
+                {
+                  row.map((cell, k) => {
+                    return this.renderCell(k, cell);
+                  })
+                }
+              </tr>
+          );
+          csvRows.push(row);
+        });
+        
+      }
+    });
+    
+    const csvData = [].concat(csvHeader, csvRows);
+
     return (
       <div className="DataTable">
-        <p>{this.props.question.label}</p>
-        <table className="table">
-          {this.renderDataTableHeaderRow(this.props.question)}
-          <tbody>
-            {this.renderDataTableRows(this.props.question,this.props.resulttypes)}
-          </tbody>
-        </table>
+        <div className="DataTable__QuestionLabel">{this.props.question.label}</div>
+        <div className="DataTable__Wrap">
+          <CSVLink
+            data={csvData}
+            filename={'data-book-' + this.props.question.value + '.csv'}
+            className="DataTable__CSVLink"
+          >download CSV</CSVLink>
+          <table className="table">
+            <thead>
+              {header}
+            </thead>
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Intro from './DataBook/Intro';
+//import Intro from './DataBook/Intro';
 import ResultTypeList from './DataBook/ResultTypeList';
 import TopicSelect from './DataBook/TopicSelect';
 import FilterText from './DataBook/FilterText';
@@ -186,8 +186,8 @@ export default class DataBook extends React.Component {
 
     return (
       <div className="DataBook">
-        <Intro />
-        <div className="SectionTitle">Select the result types you want to see:</div>
+        {/*<Intro />*/}
+        <div className="SectionTitle">Result types <small><em>(select 1 or more)</em></small></div>
         <ResultTypeList
           resulttypes={current.resulttypes}
           questions={current.questions}
@@ -195,7 +195,7 @@ export default class DataBook extends React.Component {
           onSelectAllResultTypes={() => this.handleSelectAllResultTypes()}
           onClearSelectedResultTypes={() => this.handleClearSelectedResultTypes()}
         />
-        <div className="SectionTitle">Select which questions you want to view:</div>
+        <div className="SectionTitle">Survey questions <small><em>(select 1 or more)</em></small></div>
         <div className="Questions">
           <div className="QuestionFilters">
             <TopicSelect
@@ -212,13 +212,15 @@ export default class DataBook extends React.Component {
             selectedTopics={current.selectedTopics}
             filterText={current.filterText}
             questions={current.questions}
+            resulttypes={current.resulttypes}
+            csv={this.props.csv}
             shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
             onClick={(i) => this.handleQuestionClick(i)}
             onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
             onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
           />
         </div>
-        <div className="SectionTitle">View your selected data tables:</div>
+        <div className="SectionTitle">Your data tables:</div>
         <DataTableList
           questions={current.questions}
           resulttypes={current.resulttypes}

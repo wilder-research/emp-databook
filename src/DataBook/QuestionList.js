@@ -17,23 +17,27 @@ export default class QuestionList extends React.Component {
   }
 
   renderQuestionsTitle() {
-    let activeQuestions = 0;
+    let numActiveQuestions = 0;
+    let numSelectedQuestions = 0;
     this.props.questions.forEach(question => {
       if (this.props.shouldShowQuestion(question)) {
-        activeQuestions = activeQuestions + 1;
+        numActiveQuestions = numActiveQuestions + 1;
+      }
+      if (question.selected) {
+        numSelectedQuestions = numSelectedQuestions + 1;
       }
     });
-    if (activeQuestions > 0) {
+    if (numActiveQuestions > 0) {
       return (
-        <div>Showing {activeQuestions} of {this.props.questions.length} questions
+        <p>Showing {numActiveQuestions} of {this.props.questions.length} questions, {numSelectedQuestions} selected.
           <button type="button" className="Button__Link" onClick={this.handleSelectAllVisible}>select all</button>
           <button type="button" className="Button__Link" onClick={this.handleClearAllSelected}>clear</button>
-        </div>
+        </p>
       );
     } else {
       return (
         <div>
-          <div className="QuestionList__Placeholder">(Select topic(s) or search above to find questions.)</div>
+          <div className="QuestionList__Placeholder">(Select topic(s) or use the search field to find questions.)</div>
         </div>
     );
     }
@@ -58,7 +62,9 @@ export default class QuestionList extends React.Component {
           <Question
           key={index}
           selected={question.selected}
-          label={question.label}
+          question={question}
+          csv={this.props.csv}
+          resulttypes={this.props.resulttypes}
           onClick={() => this.props.onClick(index)}
           />
           );
