@@ -19,6 +19,7 @@ body {
 
 #databook {
     margin: 0 .5rem;
+    padding: 0 0 3rem 0; /* additional space at bottom for iframe resizing */
 }
 
 /* Follow BEM naming approach */
@@ -51,55 +52,96 @@ body {
     margin: 2.5rem 0 0 0;
 }
 
+.SectionTitle--first {
+    margin-top: 1rem;
+}
+
+.SectionTitle__SelectionsNote {
+    color: #444444;
+    font-size: 1rem;
+    font-style: italic;
+    margin-left: 2rem;
+}
+
+.SectionTitle__SelectionsNote--no-selections::after {
+    content: "\26A0\00A0";
+    display: inline-block;
+    margin-left: .5rem;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
+    color: #bf5126;
+}
+
+.SectionTitle__SelectionsNote--selections::after {
+    content: "\2713\00A0";
+    display: inline-block;
+    margin-left: .5rem;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
+    color: green;
+}
+
+.SectionTitle__Link {
+    font-size: .825rem;
+    margin-left: .25rem;
+    color: #035d67;
+}
+
 .ResultTypeList {
-    padding: 0 10px;
-    margin: 0;
-    flex: 0 1 100%;
-    display: flex;
-    flex-flow: row wrap;
+    /**/
 }
 
 .ResultTypeList > p {
     flex: 1 3 100%;
 }
 
-.ResultType__Choice {
+.ResultTypeList__Choices {
+    margin-left: 10px;
+    flex: 0 1 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.ResultTypeList__Choice {
     padding: 2px 0;
     margin: 0;
     flex: 0 1 100%;
 }
 
-.ResultType__Choice:focus,
-.ResultType__Choice:hover {
+.ResultTypeList__Choice:focus,
+.ResultTypeList__Choice:hover {
     cursor: pointer;
 }
 
-.ResultType__Choice:hover::before {
-    content: "\2612\00A0";
+.ResultTypeList__Choice:hover::before {
+    content: "\2611\00A0";
 }
 
-.ResultType__Choice--checked {
+.ResultTypeList__Choice--checked {
     color: green;
 }
 
-.ResultType__Choice--checked::before {
-    content: "\2612\00A0";
+.ResultTypeList__Choice--checked::before {
+    content: "\2611\00A0";
     display: inline-block;
     font-size: 125%;
 }
 
-.ResultType__Choice--unchecked {
+.ResultTypeList__Choice--unchecked {
     color: #000;
 }
 
-.ResultType__Choice--unchecked::before {
+.ResultTypeList__Choice--unchecked::before {
     content: "\2610\00A0";
     display: inline-block;
     font-size: 125%;
 }
 
+/* question select and list blocks */
 .Questions {
-    /* question select and list blocks */
+    margin-left: 10px;
 }
 
 .QuestionFilters {
@@ -108,8 +150,7 @@ body {
 }
 
 .TopicSelect {
-    padding: 0 10px;
-    margin: 0;
+    margin-right: 10px;
     background: #ffffff;
     flex: 0 1 100%;
 }
@@ -134,7 +175,7 @@ body {
 .FilterText__Clear {
     position: relative;
     float: right;
-    padding: 10px;
+    padding: 10px 10px 0 0;
     cursor: pointer;
     top: -2.5rem;
     margin-bottom: -2.5rem;
@@ -150,7 +191,7 @@ body {
 }
 
 .QuestionList {
-    padding: 0 10px;
+    /**/
 }
 
 .QuestionList__Placeholder {
@@ -176,7 +217,7 @@ body {
 }
 
 .Question__Choice:hover::before {
-    content: "\2612\00A0";
+    content: "\2611\00A0";
 }
 
 .Question__Choice--checked {
@@ -184,7 +225,7 @@ body {
 }
 
 .Question__Choice--checked::before {
-    content: "\2612\00A0";
+    content: "\2611\00A0";
     display: inline-block;
     font-size: 125%;
 }
@@ -352,25 +393,33 @@ body {
 	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
 }
 
-.Button__Link {
+.SelectButtons {
+    margin-bottom: .5rem;
+}
+
+.SelectButtons--questions {
+    margin-bottom: -.5rem;
+}
+
+.SelectButtons_Button {
     user-select: none;
-    background-color: transparent;
+    background-color: #ffffff;
     border: 1px solid transparent;
-    margin-left: .5rem;
-    padding: 0 .5rem;
+    margin: 0 1rem 0 0;
+    padding: 0;
     color: #035d67;
     font-weight: 700;
     transition: color .15s ease-in-out;
     display: inline-block;
 }
-.Button__Link:hover {
+.SelectButtons_Button:hover {
     color: #c14e00;
     text-decoration: underline;
 }
 
 /* Medium+ screens */
 @media all and (min-width: 600px) {
-    .ResultType__Choice {
+    .ResultTypeList__Choice {
         flex: 0 1 33.3%;
     }
     .QuestionFilters {

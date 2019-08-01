@@ -62,12 +62,13 @@ export default class ResultTypeList extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>Start building your tables by selecting the data you want to see.
-          <button type="button" className="Button__Link" onClick={this.handleSelectAll}>select all</button>
-          <button type="button" className="Button__Link" onClick={this.handleClearAllSelected}>clear</button>
-        </p>
-        <div className="ResultTypeList">
+      <div className="ResultTypeList">
+        <p>Start building your tables by selecting the data you want to see.</p>
+        <div className="SelectButtons">
+          <button type="button" className="SelectButtons_Button" onClick={this.handleSelectAll}>select all</button>
+          <button type="button" className="SelectButtons_Button" onClick={this.handleClearAllSelected}>clear</button>
+        </div>
+        <div className="ResultTypeList__Choices">
           {/* this.renderResultTypesTitle() */}
           {/* show each if shouldRenderResultType(resulttype)  */
             this.props.resulttypes.map((resulttype, index) => {

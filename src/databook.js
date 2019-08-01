@@ -179,6 +179,45 @@ export default class DataBook extends React.Component {
     this.setState({ history: history.concat([current]) });
   }
 
+  handleLinkToDataTablesClick = (e) => {
+    //e.preventDefault();
+    //this.props.onSelectVisibleQuestions();
+  }
+
+  getNumberOfSelectedResultTypes() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    let NumberOfSelectedResultTypes = 0;
+    
+    for (let i = 0; i < current.resulttypes.length; i++) {
+      if (current.resulttypes[i].selected) {
+        NumberOfSelectedResultTypes = NumberOfSelectedResultTypes + 1;
+      };
+    }
+    
+    return NumberOfSelectedResultTypes;
+  }
+
+  getNumberOfSelectedQuestions() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    let NumberOfSelectedQuestions = 0;
+    
+    for (let i = 0; i < current.questions.length; i++) {
+      if (current.questions[i].selected) {
+        NumberOfSelectedQuestions = NumberOfSelectedQuestions + 1;
+      };
+    }
+    
+    return NumberOfSelectedQuestions;
+  }
+
   render() {
     //get the current state from history
     const history = this.state.history;
@@ -187,7 +226,11 @@ export default class DataBook extends React.Component {
     return (
       <div className="DataBook">
         {/*<Intro />*/}
-        <div className="SectionTitle">Result types <small><em>(select 1 or more)</em></small></div>
+        <div className="SectionTitle SectionTitle--first">Result types
+          <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedResultTypes()) ? "--selections" : "--no-selections" )}>
+            (select 1 or more)
+          </span>
+        </div>
         <ResultTypeList
           resulttypes={current.resulttypes}
           questions={current.questions}
@@ -195,7 +238,16 @@ export default class DataBook extends React.Component {
           onSelectAllResultTypes={() => this.handleSelectAllResultTypes()}
           onClearSelectedResultTypes={() => this.handleClearSelectedResultTypes()}
         />
-        <div className="SectionTitle">Survey questions <small><em>(select 1 or more)</em></small></div>
+        <div className="SectionTitle">Survey questions
+          <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedQuestions()) ? "--selections" : "--no-selections" )}>
+            (select 1 or more)
+          </span>
+          {(
+            (this.getNumberOfSelectedResultTypes() && this.getNumberOfSelectedQuestions()) 
+              ? <a className="SectionTitle__Link" href="#DataTablesSection" onClick={this.handleLinkToDataTablesClick}>view your tables below</a> 
+              : "" 
+          )}
+        </div>
         <div className="Questions">
           <div className="QuestionFilters">
             <TopicSelect
@@ -220,7 +272,7 @@ export default class DataBook extends React.Component {
             onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
           />
         </div>
-        <div className="SectionTitle">Your data tables:</div>
+        <div className="SectionTitle" id="DataTablesSection">Your data tables:</div>
         <DataTableList
           questions={current.questions}
           resulttypes={current.resulttypes}
