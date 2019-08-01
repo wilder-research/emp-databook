@@ -6,10 +6,10 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import DataBook from './DataBook';
+import DataBook from './databook';
 import { QUESTIONS, TOPICS, RESULTTYPES } from './docs/data';
 import 'normalize.css';
-import './index.css';
+import './index.scss';
 
 let CSV = require('./docs/csv.json');
 

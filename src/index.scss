@@ -1,12 +1,19 @@
-/*
-blue: #165e67
-orange: #bf5126
-gray: #686158
-*/
+// sass color variables
+$color-black:      #000000;
+$color-white:      #ffffff;
+$color-blue:       #165e67;
+$color-orange:     #b35f3e;
+$color-light-gray: #757575;
+$color-dark-gray:  #444444;
+$color-green:      #008000;
+$color-red:        #E60000;
+
+$color-link-text:  #035d67;
 
 /* Set base box-sizing */
 html {
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 *, *:before, *:after {
     box-sizing: inherit;
@@ -27,7 +34,7 @@ body {
     max-width: 100%;
     margin: 0 auto;
     padding: 0;
-    background: #ffffff;
+    background: $color-white;
 }
 
 .Intro {
@@ -37,7 +44,7 @@ body {
 .Intro__Title {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #165e67;
+    color: $color-blue;
 }
 
 .Intro__Subtitle {
@@ -48,7 +55,6 @@ body {
 .SectionTitle {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #222222;
     margin: 2.5rem 0 0 0;
 }
 
@@ -57,36 +63,73 @@ body {
 }
 
 .SectionTitle__SelectionsNote {
-    color: #444444;
     font-size: 1rem;
     font-style: italic;
+    font-weight: normal;
     margin-left: 2rem;
 }
 
-.SectionTitle__SelectionsNote--no-selections::after {
+.SectionTitle__SelectionsNote--no-selections {
+    color: $color-orange;
+}
+
+.SectionTitle__SelectionsNote--no-selections::before {
     content: "\26A0\00A0";
     display: inline-block;
-    margin-left: .5rem;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: normal;
     font-style: normal;
-    font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
-    color: #bf5126;
+    color: $color-orange;
 }
 
-.SectionTitle__SelectionsNote--selections::after {
+.SectionTitle__SelectionsNote--selections {
+    color: $color-green;
+}
+
+.SectionTitle__SelectionsNote--selections::before {
     content: "\2713\00A0";
     display: inline-block;
-    margin-left: .5rem;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    font-weight: normal;
     font-style: normal;
-    font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
-    color: green;
+    color: $color-green;
 }
 
-.SectionTitle__Link {
+.SectionTitle__ScrollNote {
+    margin: 0 0 0 2rem;
+    display: inline-block;
     font-size: .825rem;
-    margin-left: .25rem;
-    color: #035d67;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.SectionTitle__Button {
+    user-select: none;
+    background-color: $color-white;
+    border: 1px solid transparent;
+    margin: 0 0 0 2rem;
+    padding: 0;
+    color: $color-link-text;
+    font-size: .825rem;
+    font-weight: 700;
+    transition: color .15s ease-in-out;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.SectionTitle__Button::after {
+    content: "\21B4\00A0";
+    display: inline-block;
+    margin-left: .15rem;
+    font-size: 1.5rem;
+    font-weight: normal;
+    font-style: normal;
+    font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
+}
+
+.SectionTitle__Button:hover {
+    color: $color-orange;
+    text-decoration: underline;
 }
 
 .ResultTypeList {
@@ -120,7 +163,7 @@ body {
 }
 
 .ResultTypeList__Choice--checked {
-    color: green;
+    color: $color-green;
 }
 
 .ResultTypeList__Choice--checked::before {
@@ -130,7 +173,7 @@ body {
 }
 
 .ResultTypeList__Choice--unchecked {
-    color: #000;
+    color: $color-black;
 }
 
 .ResultTypeList__Choice--unchecked::before {
@@ -151,14 +194,14 @@ body {
 
 .TopicSelect {
     margin-right: 10px;
-    background: #ffffff;
+    background: $color-white;
     flex: 0 1 100%;
 }
 
 .FilterText {
     padding-left: 10px;
     margin: 0;
-    background: #ffffff;
+    background: $color-white;
     flex: 0 1 100%;
 }
 
@@ -195,7 +238,7 @@ body {
 }
 
 .QuestionList__Placeholder {
-    color: #808080;
+    color: $color-light-gray;
     font-style: italic;
     padding-top: 10px;
 }
@@ -203,7 +246,7 @@ body {
 .TopicHeading {
     margin: 1.5rem 0 0 0;
     font-weight: 700;
-    color: #444444;
+    color: $color-dark-gray;
 }
 
 .Question__Choice {
@@ -221,7 +264,7 @@ body {
 }
 
 .Question__Choice--checked {
-    color: green;
+    color: $color-green;
 }
 
 .Question__Choice--checked::before {
@@ -231,7 +274,7 @@ body {
 }
 
 .Question__Choice--unchecked {
-    color: #000;
+    color: $color-black;
 }
 
 .Question__Choice--unchecked::before {
@@ -241,7 +284,7 @@ body {
 }
 .Question__Choice--no-data-warning {
     margin-left: 1rem;
-    color: red;
+    color: $color-red;
 }
 
 .DataTables {
@@ -250,7 +293,7 @@ body {
 }
 
 .DataTables__Placeholder {
-    color: #808080;
+    color: $color-light-gray;
     padding: 15px 0;
     font-style: italic;
 }
@@ -261,7 +304,8 @@ body {
 }
 
 .DataTable__QuestionLabel {
-    margin-top: 1.25rem;
+    margin: 1.25rem 0 .5rem 0;
+    font-size: 1.25rem;
 }
 
 .DataTable__Wrap {
@@ -273,13 +317,13 @@ body {
     display: inline-block;
     padding: 0 .2rem .2rem 0;
     font-size: 14px;
-    color: #035d67;
+    color: $color-link-text;
     font-weight: 700;
     text-decoration: none;
     transition: color .15s ease-in-out;
 }
 .DataTable__CSVLink:hover {
-    color: #c14e00;
+    color: $color-orange;
     text-decoration: underline;
 }
 
@@ -314,7 +358,7 @@ body {
 	background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
 }
 .table tbody th {
-    background: #ffffff;
+    background: $color-white;
     font-weight: 400;
     min-width: 6rem;
     max-width: 20rem;
@@ -358,7 +402,7 @@ body {
 	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
 	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
 */
-	background: #ffffff;
+	background: $color-white;
 }
 /* 'even' row & striped table options */
 .table tr.even td,
@@ -403,17 +447,18 @@ body {
 
 .SelectButtons_Button {
     user-select: none;
-    background-color: #ffffff;
+    background-color: $color-white;
     border: 1px solid transparent;
     margin: 0 1rem 0 0;
     padding: 0;
-    color: #035d67;
+    color: $color-link-text;
     font-weight: 700;
     transition: color .15s ease-in-out;
     display: inline-block;
+    cursor: pointer;
 }
 .SelectButtons_Button:hover {
-    color: #c14e00;
+    color: $color-orange;
     text-decoration: underline;
 }
 

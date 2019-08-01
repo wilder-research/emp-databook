@@ -21,6 +21,8 @@ export default class DataBook extends React.Component {
         questions: props.questions,
       }],
     };
+    // Create a ref object
+    this.myRef = React.createRef();
   }
 
   handleResultTypeClick(i) {
@@ -179,9 +181,11 @@ export default class DataBook extends React.Component {
     this.setState({ history: history.concat([current]) });
   }
 
+  scrollToMyRef = () => window.scrollTo(0, this.myRef.current.offsetTop);
+
   handleLinkToDataTablesClick = (e) => {
-    //e.preventDefault();
-    //this.props.onSelectVisibleQuestions();
+    e.preventDefault();
+    this.scrollToMyRef();
   }
 
   getNumberOfSelectedResultTypes() {
@@ -228,7 +232,7 @@ export default class DataBook extends React.Component {
         {/*<Intro />*/}
         <div className="SectionTitle SectionTitle--first">Result types
           <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedResultTypes()) ? "--selections" : "--no-selections" )}>
-            (select 1 or more)
+            select 1 or more
           </span>
         </div>
         <ResultTypeList
@@ -240,11 +244,12 @@ export default class DataBook extends React.Component {
         />
         <div className="SectionTitle">Survey questions
           <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedQuestions()) ? "--selections" : "--no-selections" )}>
-            (select 1 or more)
+            select 1 or more
           </span>
           {(
             (this.getNumberOfSelectedResultTypes() && this.getNumberOfSelectedQuestions()) 
-              ? <a className="SectionTitle__Link" href="#DataTablesSection" onClick={this.handleLinkToDataTablesClick}>view your tables below</a> 
+              //? <button type="button" className="SectionTitle__Button" onClick={this.handleLinkToDataTablesClick}>view your tables</button>
+              ? <span className="SectionTitle__ScrollNote">scroll down to view your tables!</span>
               : "" 
           )}
         </div>
@@ -272,7 +277,7 @@ export default class DataBook extends React.Component {
             onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
           />
         </div>
-        <div className="SectionTitle" id="DataTablesSection">Your data tables:</div>
+        <div className="SectionTitle" ref={this.myRef}>Your data tables:</div>
         <DataTableList
           questions={current.questions}
           resulttypes={current.resulttypes}

@@ -21,11 +21,11 @@ export default class FilterText extends React.Component {
     return (
       <div className="FilterText">
         <form onSubmit={this.handleSubmit}>
-          <p>Or, search across all questions</p>
+          <p>Or, search across all questions:</p>
           <input
             className="FilterText__Input"
             type="text"
-            placeholder="Search all questions..."
+            placeholder="Search for..."
             value={this.props.filterText}
             onChange={this.handleChange}
           />
