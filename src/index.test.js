@@ -9,8 +9,9 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
     <DataBook
-        questions={QUESTIONS}
-        topics={TOPICS}
-        resulttypes={RESULTTYPES}
-    />, div);
+      questions={QUESTIONS}
+      topics={TOPICS}
+      resulttypes={RESULTTYPES}
+      csv={CSV}
+/>, div);
 });

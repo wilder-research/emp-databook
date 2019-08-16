@@ -1,0 +1,98 @@
+.DataBook {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background: $color-white;
+}
+
+// Main section titles
+.SectionTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 2.5rem 0 0 0;
+}
+
+.SectionTitle--first {
+    margin-top: 1rem;
+}
+
+.SectionTitle__SelectionsNote {
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: normal;
+    margin-left: 2rem;
+}
+
+.SectionTitle__SelectionsNote--no-selections {
+    color: $color-orange;
+}
+
+.SectionTitle__SelectionsNote--no-selections::before {
+    content: "\26A0\00A0";
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: normal;
+    font-style: normal;
+    color: $color-orange;
+}
+
+.SectionTitle__SelectionsNote--selections {
+    color: $color-green;
+}
+
+.SectionTitle__SelectionsNote--selections::before {
+    content: "\2713\00A0";
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: normal;
+    font-style: normal;
+    color: $color-green;
+}
+
+.SectionTitle__ScrollNote {
+    margin: 0 0 0 2rem;
+    display: inline-block;
+    font-size: .825rem;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.SectionTitle__Button {
+    user-select: none;
+    background-color: $color-white;
+    border: 1px solid transparent;
+    margin: 0 0 0 2rem;
+    padding: 0;
+    color: $color-link-text;
+    font-size: .825rem;
+    font-weight: 700;
+    transition: color .15s ease-in-out;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.SectionTitle__Button::after {
+    content: "\21B4\00A0";
+    display: inline-block;
+    margin-left: .15rem;
+    font-size: 1.5rem;
+    font-weight: normal;
+    font-style: normal;
+    font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
+}
+
+.SectionTitle__Button:hover {
+    color: $color-orange;
+    text-decoration: underline;
+}
+
+/* Questions block */
+.Questions {
+    margin-left: 10px;
+}
+
+/* QuestionFilters block */
+.QuestionFilters {
+    display: flex;
+    flex-flow: row wrap;
+}

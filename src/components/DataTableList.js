@@ -61,11 +61,11 @@ export default class DataTableList extends React.Component {
     });
 
     if(rows.length === 0) {
-      title = <div className="DataTables__Placeholder">(Select result types and questions above to generate data tables.)</div>;
+      title = <div className="DataTableList__Placeholder">(Select result types and questions above to generate data tables.)</div>;
     }
 
     return (
-      <div className="DataTables">
+      <div className="DataTableList">
         {title}
         {rows}
       </div>

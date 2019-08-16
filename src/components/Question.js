@@ -23,7 +23,7 @@ export default function Question(props) {
         + ((props.selected) ? 'checked' : 'unchecked')}
         onClick={props.onClick}>
         {props.question.label}
-        {((hasSelectedResultTypes.length) ? '' : <span className="Question__Choice--no-data-warning" title={'Data available: ' + hasResultTypes.join(', ')}>*not in selected result type(s)</span>)}
+        {((hasSelectedResultTypes.length) ? '' : <span className="Question__Choice--no-data-warning" title={'Data available: ' + hasResultTypes.join(', ')}>*no data in selected result type(s)</span>)}
       </div>
     </div>
   );

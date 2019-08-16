@@ -1,11 +1,11 @@
 import React from 'react';
 
 //import Intro from './DataBook/Intro';
-import ResultTypeList from './DataBook/ResultTypeList';
-import TopicSelect from './DataBook/TopicSelect';
-import FilterText from './DataBook/FilterText';
-import QuestionList from './DataBook/QuestionList';
-import DataTableList from './DataBook/DataTableList';
+import ResultTypeList from './ResultTypeList';
+import TopicSelect from './TopicSelect';
+import FilterText from './FilterText';
+import QuestionList from './QuestionList';
+import DataTableList from './DataTableList';
 
 //the databook is the top level component
 export default class DataBook extends React.Component {
@@ -22,7 +22,7 @@ export default class DataBook extends React.Component {
       }],
     };
     // Create a ref object
-    this.myRef = React.createRef();
+    //this.myRef = React.createRef();
   }
 
   handleResultTypeClick(i) {
@@ -181,12 +181,12 @@ export default class DataBook extends React.Component {
     this.setState({ history: history.concat([current]) });
   }
 
-  scrollToMyRef = () => window.scrollTo(0, this.myRef.current.offsetTop);
+  //scrollToMyRef = () => window.scrollTo(0, this.myRef.current.offsetTop);
 
-  handleLinkToDataTablesClick = (e) => {
-    e.preventDefault();
-    this.scrollToMyRef();
-  }
+  //handleLinkToDataTablesClick = (e) => {
+  //  e.preventDefault();
+  //  this.scrollToMyRef();
+  //}
 
   getNumberOfSelectedResultTypes() {
     //get the current state from history
@@ -232,7 +232,7 @@ export default class DataBook extends React.Component {
         {/*<Intro />*/}
         <div className="SectionTitle SectionTitle--first">Result types
           <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedResultTypes()) ? "--selections" : "--no-selections" )}>
-            select 1 or more
+            Select 1 or more
           </span>
         </div>
         <ResultTypeList
@@ -244,7 +244,7 @@ export default class DataBook extends React.Component {
         />
         <div className="SectionTitle">Survey questions
           <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedQuestions()) ? "--selections" : "--no-selections" )}>
-            select 1 or more
+            Select 1 or more
           </span>
           {(
             (this.getNumberOfSelectedResultTypes() && this.getNumberOfSelectedQuestions()) 
@@ -277,7 +277,8 @@ export default class DataBook extends React.Component {
             onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
           />
         </div>
-        <div className="SectionTitle" ref={this.myRef}>Your data tables:</div>
+        {/*<div className="SectionTitle" ref={this.myRef}>Your data tables:</div>*/}
+        <div className="SectionTitle">Your data tables:</div>
         <DataTableList
           questions={current.questions}
           resulttypes={current.resulttypes}

@@ -119,7 +119,7 @@ export default class DataTable extends React.Component {
             filename={'data-book-' + this.props.question.value + '.csv'}
             className="DataTable__CSVLink"
           >download CSV</CSVLink>
-          <table className="table">
+          <table className="DataTable__Table">
             <thead>
               {header}
             </thead>
