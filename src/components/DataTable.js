@@ -65,7 +65,8 @@ export default class DataTable extends React.Component {
 
     const labels = this.props.csv[this.props.question.value].labels;
     const header = [];
-    const csvHeader = [labels];
+    const csvHeader = [[this.props.question.label]]; // use array of array(s)
+    const csvHeaders = [labels]; // use array of array(s)
     header.push(
       <tr key="header-row">
         {
@@ -108,7 +109,7 @@ export default class DataTable extends React.Component {
       }
     });
     
-    const csvData = [].concat(csvHeader, csvRows);
+    const csvData = [].concat(csvHeader, csvHeaders, csvRows);
 
     return (
       <div className="DataTable">
