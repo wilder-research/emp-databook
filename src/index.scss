@@ -18,10 +18,16 @@
 }
 
 /* There are 3 main sections */
+.Section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
 .Section--second {
     background: #f2f2f2;
     margin: 1rem 0;
-    padding: 1rem 0 2rem 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 /* Shared styling for bottons across components */
