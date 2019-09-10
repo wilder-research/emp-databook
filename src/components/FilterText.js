@@ -25,7 +25,7 @@ export default class FilterText extends React.Component {
           <input
             className="FilterText__Input"
             type="text"
-            placeholder="Search for..."
+            placeholder="Search for (e.g., Q8 or School)..."
             value={this.props.filterText}
             onChange={this.handleChange}
           />

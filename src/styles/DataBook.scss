@@ -20,7 +20,7 @@
     font-size: 1rem;
     font-style: italic;
     font-weight: normal;
-    margin-left: 2rem;
+    display: block;
 }
 
 .SectionTitle__SelectionsNote--no-selections {
@@ -50,11 +50,11 @@
 }
 
 .SectionTitle__ScrollNote {
-    margin: 0 0 0 2rem;
-    display: inline-block;
+    display: block;
     font-size: .825rem;
     font-weight: normal;
     font-style: italic;
+    color: $color-green;
 }
 
 .SectionTitle__Button {

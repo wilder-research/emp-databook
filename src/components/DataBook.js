@@ -230,60 +230,66 @@ export default class DataBook extends React.Component {
     return (
       <div className="DataBook">
         {/*<Intro />*/}
-        <div className="SectionTitle SectionTitle--first">Result types
-          <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedResultTypes()) ? "--selections" : "--no-selections" )}>
-            Select 1 or more
-          </span>
+        <div className="Section Section--first">
+          <div className="SectionTitle SectionTitle--first">Result types
+            <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedResultTypes()) ? "--selections" : "--no-selections" )}>
+              Select 1 or more
+            </span>
+          </div>
+          <ResultTypeList
+            resulttypes={current.resulttypes}
+            questions={current.questions}
+            onClick={(i) => this.handleResultTypeClick(i)}
+            onSelectAllResultTypes={() => this.handleSelectAllResultTypes()}
+            onClearSelectedResultTypes={() => this.handleClearSelectedResultTypes()}
+          />
         </div>
-        <ResultTypeList
-          resulttypes={current.resulttypes}
-          questions={current.questions}
-          onClick={(i) => this.handleResultTypeClick(i)}
-          onSelectAllResultTypes={() => this.handleSelectAllResultTypes()}
-          onClearSelectedResultTypes={() => this.handleClearSelectedResultTypes()}
-        />
-        <div className="SectionTitle">Survey questions
-          <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedQuestions()) ? "--selections" : "--no-selections" )}>
-            Select 1 or more
-          </span>
-          {(
-            (this.getNumberOfSelectedResultTypes() && this.getNumberOfSelectedQuestions()) 
-              //? <button type="button" className="SectionTitle__Button" onClick={this.handleLinkToDataTablesClick}>view your tables</button>
-              ? <span className="SectionTitle__ScrollNote">scroll down to view your tables!</span>
-              : "" 
-          )}
-        </div>
-        <div className="Questions">
-          <div className="QuestionFilters">
-            <TopicSelect
+        <div className="Section Section--second">
+          <div className="SectionTitle">Survey questions
+            <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedQuestions()) ? "--selections" : "--no-selections" )}>
+              Select 1 or more
+            </span>
+            {(
+              (this.getNumberOfSelectedResultTypes() && this.getNumberOfSelectedQuestions()) 
+                //? <button type="button" className="SectionTitle__Button" onClick={this.handleLinkToDataTablesClick}>view your tables</button>
+                ? <span className="SectionTitle__ScrollNote">Scroll down to view your tables!</span>
+                : "" 
+            )}
+          </div>
+          <div className="Questions">
+            <div className="QuestionFilters">
+              <TopicSelect
+                selectedTopics={current.selectedTopics}
+                options={this.props.topics}
+                onChange={(newValue) => this.handleTopicSelectChange(newValue)}
+              />
+              <FilterText
+                filterText={current.filterText}
+                onChange={(newValue) => this.handleFilterTextChange(newValue)}
+              />
+            </div>
+            <QuestionList
               selectedTopics={current.selectedTopics}
-              options={this.props.topics}
-              onChange={(newValue) => this.handleTopicSelectChange(newValue)}
-            />
-            <FilterText
               filterText={current.filterText}
-              onChange={(newValue) => this.handleFilterTextChange(newValue)}
+              questions={current.questions}
+              resulttypes={current.resulttypes}
+              csv={this.props.csv}
+              shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
+              onClick={(i) => this.handleQuestionClick(i)}
+              onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
+              onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
             />
           </div>
-          <QuestionList
-            selectedTopics={current.selectedTopics}
-            filterText={current.filterText}
+        </div>
+        <div className="Section Section--third">
+          {/*<div className="SectionTitle" ref={this.myRef}>Your data tables:</div>*/}
+          <div className="SectionTitle">Your data tables:</div>
+          <DataTableList
             questions={current.questions}
             resulttypes={current.resulttypes}
             csv={this.props.csv}
-            shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
-            onClick={(i) => this.handleQuestionClick(i)}
-            onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
-            onClearSelectedQuestions={() => this.handleClearSelectedQuestions()}
           />
         </div>
-        {/*<div className="SectionTitle" ref={this.myRef}>Your data tables:</div>*/}
-        <div className="SectionTitle">Your data tables:</div>
-        <DataTableList
-          questions={current.questions}
-          resulttypes={current.resulttypes}
-          csv={this.props.csv}
-        />
       </div>
     );
   }
