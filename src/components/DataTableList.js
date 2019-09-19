@@ -106,14 +106,14 @@ export default class DataTableList extends React.Component {
       }
     });
 
-    if(rows.length === 0) {
+    if(renderedQuestions.length === 0) {
       title = <div className="DataTableList__Placeholder">(Select result types and questions above to generate data tables.)</div>;
-    } else {
+    } else if(renderedQuestions.length > 1) {
       title = <div><CSVLink
         data={this.getDataForCSVLink(renderedQuestions)}
         filename={'data-book-selected-tables.csv'}
         className="DataTable__CSVLink"
-        >download all as CSV</CSVLink></div>;
+        >Download all selected tables as CSV</CSVLink></div>;
     }
 
     return (
