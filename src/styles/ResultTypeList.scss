@@ -26,6 +26,7 @@
 
 .ResultTypeList__Choice--checked {
     color: $color-green;
+    font-weight: bold;
 }
 
 .ResultTypeList__Choice--checked::before {

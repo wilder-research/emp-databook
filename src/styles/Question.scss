@@ -14,6 +14,7 @@
 
 .Question__Choice--checked {
     color: $color-green;
+    font-weight: bold;
 }
 
 .Question__Choice--checked::before {
