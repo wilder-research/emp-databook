@@ -65,8 +65,6 @@ export default class DataTable extends React.Component {
 
     const labels = this.props.csv[this.props.question.value].labels;
     const header = [];
-    const csvHeader = [[this.props.question.label]]; // use array of array(s)
-    const csvHeaders = [labels]; // use array of array(s)
     header.push(
       <tr key="header-row">
         {
@@ -79,7 +77,6 @@ export default class DataTable extends React.Component {
 
     const data = this.props.csv[this.props.question.value].data;
     const rows = [];
-    const csvRows = [];
     this.props.resulttypes.forEach((resulttype, i) => {
       if (data && resulttype.selected && data[resulttype.value]) {
         rows.push(
@@ -90,7 +87,6 @@ export default class DataTable extends React.Component {
               <th colSpan={labels.length}>{resulttype.value}</th>
             </tr>
         );
-        csvRows.push([resulttype.value]);
         data[resulttype.value].forEach((row, j) => {
           rows.push(
             <tr
@@ -103,20 +99,17 @@ export default class DataTable extends React.Component {
                 }
               </tr>
           );
-          csvRows.push(row);
         });
         
       }
     });
     
-    const csvData = [].concat(csvHeader, csvHeaders, csvRows);
-
     return (
       <div className="DataTable">
         <div className="DataTable__QuestionLabel">{this.props.question.label}</div>
         <div className="DataTable__Wrap">
           <CSVLink
-            data={csvData}
+            data={this.props.dataForCSVLink}
             filename={'data-book-' + this.props.question.value + '.csv'}
             className="DataTable__CSVLink"
           >download CSV</CSVLink>
