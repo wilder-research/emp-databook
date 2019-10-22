@@ -2,3 +2,11 @@
     margin-right: 10px;
     flex: 0 1 100%;
 }
+
+/* Medium+ screens */
+@media all and (min-width: $screen-width-md) {
+    .TopicSelect {
+        max-width: 50%;
+        flex: 1 1 auto;
+    }
+}

@@ -5,11 +5,30 @@
     background: $color-white;
 }
 
-// Main section titles
+/* There are 3 main sections */
+.Section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-family: $font-roboto;
+    color: $color-dark-gray;
+}
+
+.Section--second {
+    background: #efeeea; // alternates: #dde2e5; #f2edea
+    margin: 2rem 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    .SectionTitle {
+        margin-top: 1rem;
+    }
+}
+
+/* Main section titles */
 .SectionTitle {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 400;
     margin: 2.5rem 0 0 0;
+    color: $color-teal;
 }
 
 .SectionTitle--first {
@@ -24,7 +43,7 @@
 }
 
 .SectionTitle__SelectionsNote--no-selections {
-    color: $color-orange;
+    color: $color-red-orange;
 }
 
 .SectionTitle__SelectionsNote--no-selections::before {
@@ -33,7 +52,7 @@
     font-size: 1.25rem;
     font-weight: normal;
     font-style: normal;
-    color: $color-orange;
+    color: $color-red-orange;
 }
 
 .SectionTitle__SelectionsNote--selections {
@@ -57,34 +76,33 @@
     color: $color-green;
 }
 
-.SectionTitle__Button {
-    user-select: none;
-    background-color: $color-white;
-    border: 1px solid transparent;
-    margin: 0 0 0 2rem;
-    padding: 0;
-    color: $color-link-text;
-    font-size: .825rem;
-    font-weight: 700;
-    transition: color .15s ease-in-out;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.SectionTitle__Button::after {
-    content: "\21B4\00A0";
-    display: inline-block;
-    margin-left: .15rem;
-    font-size: 1.5rem;
-    font-weight: normal;
-    font-style: normal;
-    font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
-}
-
-.SectionTitle__Button:hover {
-    color: $color-orange;
-    text-decoration: underline;
-}
+// Not using this button for now
+// .SectionTitle__Button {
+//     user-select: none;
+//     background-color: $color-white;
+//     border: 1px solid transparent;
+//     margin: 0 0 0 2rem;
+//     padding: 0;
+//     color: $color-link-text;
+//     font-size: .825rem;
+//     font-weight: 700;
+//     transition: color .15s ease-in-out;
+//     display: inline-block;
+//     cursor: pointer;
+// }
+// .SectionTitle__Button::after {
+//     content: "\21B4\00A0";
+//     display: inline-block;
+//     margin-left: .15rem;
+//     font-size: 1.5rem;
+//     font-weight: normal;
+//     font-style: normal;
+//     font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
+// }
+// .SectionTitle__Button:hover {
+//     color: $color-red-orange;
+//     text-decoration: underline;
+// }
 
 /* Questions block */
 .Questions {
@@ -96,3 +114,43 @@
     display: flex;
     flex-flow: row wrap;
 }
+
+/* Shared styling for buttons across child components */
+.SelectButtons {
+    margin-bottom: .5rem;
+}
+.SelectButtons--questions {
+    margin-bottom: -.5rem;
+}
+.SelectButtons_Button {
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    margin: 0 1rem 0 0;
+    padding: 0;
+    color: $color-link-text;
+    text-decoration: underline;
+    transition: color .15s ease-in-out;
+    display: inline-block;
+    cursor: pointer;
+}
+.SelectButtons_Button:hover {
+    color: $color-red-orange;
+    text-decoration: none;
+}
+
+/* Medium+ screens */
+@media all and (min-width: $screen-width-md) {
+    .QuestionFilters {
+        flex-flow: row nowrap;
+        max-width: 60rem;
+    }
+    .SectionTitle__SelectionsNote {
+        display: inline-block;
+        margin-left: 2rem;
+    }
+    .SectionTitle__ScrollNote {
+        display: inline-block;
+        margin-left: 2rem;
+    }
+  }

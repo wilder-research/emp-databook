@@ -107,7 +107,7 @@ export default class DataTableList extends React.Component {
     });
 
     if(renderedQuestions.length === 0) {
-      title = <div className="DataTableList__Placeholder">(Select result types and questions above to generate data tables.)</div>;
+      title = <div className="DataTableList__Placeholder">[Displayed after selecting result types and questions above.]</div>;
     } else if(renderedQuestions.length > 1) {
       title = <div><CSVLink
         data={this.getDataForCSVLink(renderedQuestions)}

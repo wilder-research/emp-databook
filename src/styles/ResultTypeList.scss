@@ -26,7 +26,7 @@
 
 .ResultTypeList__Choice--checked {
     color: $color-green;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .ResultTypeList__Choice--checked::before {
@@ -43,4 +43,11 @@
     content: "\2610\00A0";
     display: inline-block;
     font-size: 125%;
+}
+
+/* Medium+ screens */
+@media all and (min-width: $screen-width-md) {
+    .ResultTypeList__Choice {
+        flex: 0 1 33.3%;
+    }
 }

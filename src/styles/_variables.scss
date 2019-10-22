@@ -1,14 +1,18 @@
-/* Sass color variables */
+/* Sass variables */
 $color-black:      #000000;
 $color-white:      #ffffff;
 $color-blue:       #165e67;
-$color-orange:     #b35f3e;
+$color-red-orange: #c14e00;
 $color-light-gray: #757575;
-$color-dark-gray:  #444444;
-$color-green:      #006500;
-$color-red:        #E60000;
+$color-dark-gray:  #696057;
+$color-teal:       #035d67;
+$color-green:      #69813c;
+//$color-red:        #E60000;
 
 $color-link-text:  #0075bc; // #035d67;
 
-$screen-width-md:  '576px';
-$screen-width-lg:  '992px';
+$screen-width-md:  576px;
+$screen-width-lg:  992px;
+
+$font-vollkorn:   "Vollkorn", Georgia, Times New Roman, serif;
+$font-roboto:     "Roboto", sans-serif;

@@ -4,22 +4,21 @@
 }
 
 .FilterText__Input {
-    width: 100%;
-    padding: 8px;
+    width: 95%; // complements width of .FilterText__Clear
+    padding: 3px 0 3px 10px;
     border: solid 1px #cccccc;
-    border-radius: 4px;
+    border-radius: 0;
     vertical-align: bottom;
-    font-size: 100%;
-    height: 2.5rem;
+    height: 30px;
 }
 
 .FilterText__Clear {
     position: relative;
     float: right;
-    padding: 10px 10px 0 0;
     cursor: pointer;
-    top: -2.5rem;
-    margin-bottom: -2.5rem;
+    top: -30px;
+    margin-bottom: -30px;
+    width: 9%; // complements width of .FilterText__Input
 }
 
 .FilterText__ClearX {
@@ -29,4 +28,13 @@
     line-height: 1;
     stroke: currentColor;
     stroke-width: 0;
+}
+
+/* Medium+ screens */
+@media all and (min-width: $screen-width-md) {
+    .FilterText {
+        max-width: 50%;
+        flex: 1 1 auto;
+        padding-left: 10px;
+    }
 }

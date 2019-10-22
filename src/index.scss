@@ -1,5 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700");
+@import url("https://fonts.googleapis.com/css?family=Vollkorn:400,400i,600,600i,700,700i");
+
+// Variables SCSS
 @import './styles/variables';
-@import './styles/base';
+// Components SCSS
 @import './styles/DataBook.scss';
 @import './styles/Intro.scss';
 @import './styles/ResultTypeList.scss';
@@ -11,75 +15,13 @@
 @import './styles/DataTableList.scss';
 @import './styles/DataTable.scss';
 
+/* Page level styles */
+// body {
+//     font-family: $font-roboto;
+//     color: $color-dark-gray;
+// }
+
 /* Main selector for ReactDOM.render() */
 #databookApp {
-    margin: 0;
-    padding: 0 0 3rem 0; /* additional space at bottom for iframe resizing */
+    padding-bottom: 3rem; /* additional space at bottom for iframe resizing */
 }
-
-/* There are 3 main sections */
-.Section {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.Section--second {
-    background: #f2edea; // alternate: #dde2e5
-    margin: 2rem 0;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    .SectionTitle {
-        margin-top: 1rem;
-    }
-}
-
-/* Shared styling for bottons across components */
-.SelectButtons {
-    margin-bottom: .5rem;
-}
-.SelectButtons--questions {
-    margin-bottom: -.5rem;
-}
-.SelectButtons_Button {
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
-    margin: 0 1rem 0 0;
-    padding: 0;
-    color: $color-link-text;
-    text-decoration: underline;
-    transition: color .15s ease-in-out;
-    display: inline-block;
-    cursor: pointer;
-}
-.SelectButtons_Button:hover {
-    color: $color-orange;
-    text-decoration: none;
-}
-
-/* Medium+ screens */
-@media all and (min-width: $screen-width-md) {
-    .ResultTypeList__Choice {
-        flex: 0 1 33.3%;
-    }
-    .QuestionFilters {
-        flex-flow: row nowrap;
-        max-width: 60rem;
-    }
-    .TopicSelect,
-    .FilterText {
-        max-width: 50%;
-        flex: 1 1 auto;
-    }
-    .FilterText {
-        padding-left: 10px;
-    }
-    .SectionTitle__SelectionsNote {
-        display: inline-block;
-        margin-left: 2rem;
-    }
-    .SectionTitle__ScrollNote {
-        display: inline-block;
-        margin-left: 2rem;
-    }
-  }
