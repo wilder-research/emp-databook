@@ -282,8 +282,8 @@ export default class DataBook extends React.Component {
           </div>
         </div>
         <div className="Section Section--third">
-          {/*<div className="SectionTitle" ref={this.myRef}>Your data tables:</div>*/}
-          <div className="SectionTitle">Your data tables:</div>
+          {/*<div className="SectionTitle" ref={this.myRef}>Your data tables</div>*/}
+          <div className="SectionTitle">Your data tables</div>
           <DataTableList
             questions={current.questions}
             resulttypes={current.resulttypes}

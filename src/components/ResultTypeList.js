@@ -15,6 +15,7 @@ export default class ResultTypeList extends React.Component {
     this.props.onClearSelectedResultTypes();
   }
 
+  /*
   renderResultTypesTitle() {
     let activeResultTypes = 0;
     this.props.resulttypes.forEach(resulttype => {
@@ -30,6 +31,7 @@ export default class ResultTypeList extends React.Component {
       );
     }
   }
+  */
 
   shouldRenderResultType(resulttype) {
     /*

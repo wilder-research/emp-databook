@@ -10,12 +10,12 @@
 
 .DataTable__Wrap {
     display: inline-block;
-    text-align: right;
+    // text-align: right;
 }
 
 .DataTable__CSVLink {
     display: inline-block;
-    padding: 0 .2rem .2rem 0;
+    padding: .5rem .2rem .2rem 0;
     font-size: 14px;
     color: $color-link-text;
     font-weight: 500;
@@ -23,7 +23,7 @@
     transition: color .15s ease-in-out;
 }
 .DataTable__CSVLink:hover {
-    color: $color-red-orange;
+    color: $color-link-hover;
     text-decoration: underline;
 }
 

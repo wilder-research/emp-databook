@@ -2,14 +2,16 @@
 $color-black:      #000000;
 $color-white:      #ffffff;
 $color-blue:       #165e67;
+$color-red:        #E60000;
 $color-red-orange: #c14e00;
 $color-light-gray: #757575;
 $color-dark-gray:  #696057;
 $color-teal:       #035d67;
 $color-green:      #69813c;
-//$color-red:        #E60000;
 
-$color-link-text:  #0075bc; // #035d67;
+
+$color-link-text:  $color-red-orange;
+$color-link-hover: $color-teal;
 
 $screen-width-md:  576px;
 $screen-width-lg:  992px;

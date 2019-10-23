@@ -108,11 +108,6 @@ export default class DataTable extends React.Component {
       <div className="DataTable">
         <div className="DataTable__QuestionLabel">{this.props.question.label}</div>
         <div className="DataTable__Wrap">
-          <CSVLink
-            data={this.props.dataForCSVLink}
-            filename={'data-book-' + this.props.question.value + '.csv'}
-            className="DataTable__CSVLink"
-          >download CSV</CSVLink>
           <table className="DataTable__Table">
             <thead>
               {header}
@@ -121,6 +116,11 @@ export default class DataTable extends React.Component {
               {rows}
             </tbody>
           </table>
+          <CSVLink
+            data={this.props.dataForCSVLink}
+            filename={'data-book-' + this.props.question.value + '.csv'}
+            className="DataTable__CSVLink"
+          >Download as CSV</CSVLink>
         </div>
       </div>
     );

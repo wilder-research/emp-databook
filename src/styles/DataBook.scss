@@ -43,7 +43,7 @@
 }
 
 .SectionTitle__SelectionsNote--no-selections {
-    color: $color-red-orange;
+    color: $color-red;
 }
 
 .SectionTitle__SelectionsNote--no-selections::before {
@@ -52,7 +52,7 @@
     font-size: 1.25rem;
     font-weight: normal;
     font-style: normal;
-    color: $color-red-orange;
+    color: $color-red;
 }
 
 .SectionTitle__SelectionsNote--selections {
@@ -100,7 +100,7 @@
 //     font-family: "Times", "Times New Roman", "serif", "sans-serif", "EmojiSymbols";
 // }
 // .SectionTitle__Button:hover {
-//     color: $color-red-orange;
+//     color: $color-link-hover;
 //     text-decoration: underline;
 // }
 
@@ -135,7 +135,7 @@
     cursor: pointer;
 }
 .SelectButtons_Button:hover {
-    color: $color-red-orange;
+    color: $color-link-hover;
     text-decoration: none;
 }
 
