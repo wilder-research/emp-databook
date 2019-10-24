@@ -2,7 +2,7 @@
   "name": "databook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://test.wilderresearch.org/projects/emp-databook/build",
+  "homepage": "https://wilderresearch.org/data-books/east-metro-pulse-v2/build",
   "dependencies": {
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
