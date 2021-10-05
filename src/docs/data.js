@@ -1,6 +1,7 @@
 //list of all questions in data set
 export const QUESTIONS = [
   { selected: false, value: 'Q1', topic: 'Community connectedness', label: 'Q1. How long have you lived in the East Metro?' },
+  { selected: false, value: 'Q1A', topic: 'Community connectedness', label: 'Q1A. Test question for 2021 only. (label from data.js QUESTIONS var)' },
   { selected: false, value: 'Q2', topic: 'Community connectedness', label: 'Q2. What are the main reasons you choose to live here?' },
   { selected: false, value: 'Q3A', topic: 'Community connectedness', label: 'Q3A. How would you rate the East Metro as a place to live?' },
   { selected: false, value: 'Q3B', topic: 'Community connectedness', label: 'Q3B. How would you rate the East Metro as a place to raise children?' },
@@ -16,6 +17,7 @@ export const QUESTIONS = [
   { selected: false, value: 'Q4', topic: 'Community connectedness', label: 'Q4. Do you think of the East Metro as a place where you belong or just a place to live?' },
   { selected: false, value: 'Q5', topic: 'Community connectedness', label: 'Q5. How much do you agree or disagree that you have a voice in the community where you live?' },
   { selected: false, value: 'Q6', topic: 'Housing', label: 'Q6. What is your current housing situation?' },
+  { selected: false, value: 'Q6A', topic: 'Housing', label: 'Q6A. Test question for 2021 only. (label from data.js QUESTIONS var)' },
   { selected: false, value: 'Q7', topic: 'Housing', label: 'Q7. What were your biggest housing-related concerns over the past year?' },
   { selected: false, value: 'Q8A', topic: 'Education', label: 'Q8A. Which types of child care are available to your household?' },
   { selected: false, value: 'Q8B', topic: 'Education', label: 'Q8B. Which types early childhood education / preschool are available to your household?' },

@@ -273,7 +273,8 @@ export default class DataBook extends React.Component {
               filterText={current.filterText}
               questions={current.questions}
               resulttypes={current.resulttypes}
-              csv={this.props.csv}
+              csv2018={this.props.csv2018}
+              csv2021={this.props.csv2021}
               shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
               onClick={(i) => this.handleQuestionClick(i)}
               onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
@@ -287,7 +288,8 @@ export default class DataBook extends React.Component {
           <DataTableList
             questions={current.questions}
             resulttypes={current.resulttypes}
-            csv={this.props.csv}
+            csv2018={this.props.csv2018}
+            csv2021={this.props.csv2021}
           />
         </div>
       </div>

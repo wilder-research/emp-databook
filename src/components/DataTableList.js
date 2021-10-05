@@ -9,19 +9,20 @@ export default class DataTableList extends React.Component {
   //props passed:
   //questions={current.questions}
   //resulttypes={current.resulttypes}
-  //csv={this.props.csv}
+  //csv2018={this.props.csv2018}
+  //csv2021={this.props.csv2021}
 
   shouldRenderDataTableForQuestion(question) {
     if (!question.selected || !question.value) {
       return false;
     }
 
-    const q = this.props.csv[question.value];
+    const q = this.props.csv2018[question.value];
     if (!q) {
       return false;
     }
 
-    const data = this.props.csv[question.value].data;
+    const data = this.props.csv2018[question.value].data;
     if (!data) {
       return false;
     }
@@ -53,8 +54,8 @@ export default class DataTableList extends React.Component {
       if(!question.value || !question.label) {
         return;
       }
-      labels = this.props.csv[question.value].labels || [];
-      data = this.props.csv[question.value].data || null;
+      labels = this.props.csv2018[question.value].labels || [];
+      data = this.props.csv2018[question.value].data || null;
       csvHeader = [[question.label]]; // use array of array(s)
       csvHeaders = [labels]; // use array of array(s)
       csvRows = []; // start with an empty rows array
@@ -98,7 +99,8 @@ export default class DataTableList extends React.Component {
             key={index}
             question={question}
             resulttypes={this.props.resulttypes}
-            csv={this.props.csv}
+            csv2018={this.props.csv2018}
+            csv2021={this.props.csv2021}
             dataForCSVLink={this.getDataForCSVLink(question)}
           />
         );

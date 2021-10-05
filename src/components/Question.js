@@ -7,9 +7,9 @@ export default function Question(props) {
   let hasResultTypes = [];
   let hasSelectedResultTypes = [];
   props.resulttypes.forEach(resulttype => {    
-    if (props.csv[props.question.value] && 
-        props.csv[props.question.value]['data'] && 
-        props.csv[props.question.value]['data'][resulttype.value]) {
+    if (props.csv2018[props.question.value] && 
+        props.csv2018[props.question.value]['data'] && 
+        props.csv2018[props.question.value]['data'][resulttype.value]) {
       hasResultTypes.push(resulttype.label);
       if (resulttype.selected) {
         hasSelectedResultTypes.push(resulttype.label);
