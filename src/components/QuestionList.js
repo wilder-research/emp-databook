@@ -68,6 +68,7 @@ export default class QuestionList extends React.Component {
           key={index}
           selected={question.selected}
           question={question}
+          datayears={this.props.datayears}
           csv2018={this.props.csv2018}
           csv2021={this.props.csv2021}
           resulttypes={this.props.resulttypes}
