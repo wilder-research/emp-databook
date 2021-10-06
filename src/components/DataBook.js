@@ -2,6 +2,7 @@ import React from 'react';
 
 //import Intro from './DataBook/Intro';
 import ResultTypeList from './ResultTypeList';
+import DataYearList from './DataYearList';
 import TopicSelect from './TopicSelect';
 import FilterText from './FilterText';
 import QuestionList from './QuestionList';
@@ -16,6 +17,7 @@ export default class DataBook extends React.Component {
       //store changes to state in .history; an array of objects
       history: [{
         resulttypes: props.resulttypes,
+        datayears: props.datayears,
         selectedTopics: [],
         filterText: '',
         questions: props.questions,
@@ -25,6 +27,61 @@ export default class DataBook extends React.Component {
     //this.myRef = React.createRef();
   }
 
+  handleDataYearClick(i) {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    const datayears = current.datayears.slice();
+    //Toggle result type selected or not
+    datayears[i].selected = !datayears[i].selected;
+    
+    //set changes into current state
+    current.datayears = datayears;
+    
+    //setState to update the UI
+    this.setState({ history: history.concat([current]) });
+  }
+
+  handleSelectAllDataYears() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    const datayears = current.datayears.slice();
+    
+    for (let i = 0; i < current.datayears.length; i++) {
+      datayears[i].selected = true;
+    }
+    
+    //set changes into current state
+    current.datayears = datayears;
+    
+    //setState to update the UI
+    this.setState({ history: history.concat([current]) });
+  }
+
+  handleClearSelectedDataYears() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    const datayears = current.datayears.slice();
+    
+    for (let i = 0; i < current.datayears.length; i++) {
+      datayears[i].selected = false;
+    }
+    
+    //set changes into current state
+    current.datayears = datayears;
+    
+    //setState to update the UI
+    this.setState({ history: history.concat([current]) });
+  }
+  
   handleResultTypeClick(i) {
     //get the current state from history
     const history = this.state.history;
@@ -188,6 +245,23 @@ export default class DataBook extends React.Component {
   //  this.scrollToMyRef();
   //}
 
+  getNumberOfSelectedDataYears() {
+    //get the current state from history
+    const history = this.state.history;
+    const current = history[history.length - 1];
+    
+    //copy topics array from current state
+    let NumberOfSelectedDataYears = 0;
+    
+    for (let i = 0; i < current.datayears.length; i++) {
+      if (current.datayears[i].selected) {
+        NumberOfSelectedDataYears = NumberOfSelectedDataYears + 1;
+      };
+    }
+    
+    return NumberOfSelectedDataYears;
+  }
+
   getNumberOfSelectedResultTypes() {
     //get the current state from history
     const history = this.state.history;
@@ -230,6 +304,20 @@ export default class DataBook extends React.Component {
     return (
       <div className="DataBook">
         {/*<Intro />*/}
+        <div className="Section Section--second">
+          <div className="SectionTitle SectionTitle--first">Data years
+            <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedDataYears()) ? "--selections" : "--no-selections" )}>
+              Select 1 or more
+            </span>
+          </div>
+          <DataYearList
+            datayears={current.datayears}
+            questions={current.questions}
+            onClick={(i) => this.handleDataYearClick(i)}
+            onSelectAllDataYears={() => this.handleSelectAllDataYears()}
+            onClearSelectedDataYears={() => this.handleClearSelectedDataYears()}
+          />
+        </div>
         <div className="Section Section--first">
           <div className="SectionTitle SectionTitle--first">Result types
             <span className={"SectionTitle__SelectionsNote SectionTitle__SelectionsNote" + ((this.getNumberOfSelectedResultTypes()) ? "--selections" : "--no-selections" )}>

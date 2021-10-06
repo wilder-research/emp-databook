@@ -14,7 +14,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Load the data files
-import { QUESTIONS, TOPICS, RESULTTYPES } from './docs/data'; // docs/data.js
+import { QUESTIONS, TOPICS, RESULTTYPES, DATAYEARS } from './docs/data'; // docs/data.js
 import CSV2018 from './docs/csv-2018'; // docs/csv-2018.json
 import CSV2021 from './docs/csv-2021'; // docs/csv-2021.json
 
@@ -27,6 +27,7 @@ ReactDOM.render(
         questions={QUESTIONS}
         topics={TOPICS}
         resulttypes={RESULTTYPES}
+        datayears={DATAYEARS}
         csv2018={CSV2018}
         csv2021={CSV2021}
     />,

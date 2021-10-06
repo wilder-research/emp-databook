@@ -161,3 +161,9 @@ export const RESULTTYPES = [
   { selected: false, value: 'Results by race/ethnicity:', label: 'By race/ethnicity' },
   /*{ selected: true, value: 'Text responses:', label: 'Text responses (*by region*)' },*/
 ];
+
+//list of years of data available
+export const DATAYEARS = [
+  { selected: false, value: '2018', label: '2018' },
+  { selected: false, value: '2021', label: '2021' },
+];
