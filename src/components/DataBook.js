@@ -377,6 +377,7 @@ export default class DataBook extends React.Component {
           <DataTableList
             questions={current.questions}
             resulttypes={current.resulttypes}
+            datayears={current.datayears}
             csv2018={this.props.csv2018}
             csv2021={this.props.csv2021}
           />

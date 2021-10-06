@@ -24,8 +24,8 @@ export default function Question(props) {
   let hasSelectedDataYears = [];
   props.datayears.forEach(datayear => {
     if (props['csv' + datayear.value] && 
-        props['csv' + datayear.value][props.question.value] &&
-        props['csv' + datayear.value][props.question.value]['data']) {
+      props['csv' + datayear.value][props.question.value] &&
+      props['csv' + datayear.value][props.question.value]['data']) {
       hasDataYears.push(datayear.value); // current question has data in csv-$datayear.json file
       if (datayear.selected) {
         hasSelectedDataYears.push(datayear.value); // also, $datayear is selected
