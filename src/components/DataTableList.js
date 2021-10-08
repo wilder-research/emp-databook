@@ -34,12 +34,12 @@ export default class DataTableList extends React.Component {
                 console.log('data for resulttype:', this.props.resulttypes[i].value);
                 shouldRender = true; // have data for at least 1 year and selected result type
                 break; 
-            } else {
-              console.log('No data for resulttype:', this.props.resulttypes[i].value);
+            // } else {
+            //   console.log('No data for resulttype:', this.props.resulttypes[i].value);
             }
           }
-      } else {
-        console.log('No data for question:', question.value);
+      // } else {
+      //   console.log('No data for question:', question.value);
       }
     });
 
@@ -54,33 +54,32 @@ export default class DataTableList extends React.Component {
       return yearsToRender;
     }
 
-    console.log('yearsToRenderDataTablesForQuestion');
+    // console.log('yearsToRenderDataTablesForQuestion');
 
     this.props.datayears.forEach(datayear => {
-      console.log('datayear:', datayear.value);
-      if (!datayear.selected) { return; }
-      if (this.props['csv' + datayear.value] && 
+      // console.log('datayear:', datayear.value);
+      if (datayear.selected &&
+        this.props['csv' + datayear.value] && 
         this.props['csv' + datayear.value][question.value] &&
         this.props['csv' + datayear.value][question.value]['data']) {
-          console.log('data for question:', question.value);
+          console.log('data for question, year:', question.value, datayear.value);
           for (let i = 0; i < this.props.resulttypes.length; i++) {
             if (this.props.resulttypes[i].selected &&
               this.props['csv' + datayear.value][question.value]['data'][this.props.resulttypes[i].value]) {
                 console.log('data for resulttype:', this.props.resulttypes[i].value);
                 yearsToRender.push(datayear.value); // have data for at least 1 year and selected result type
                 break; 
-            } else {
-              console.log('No data for resulttype:', this.props.resulttypes[i].value);
+            // } else {
+            //   console.log('No data for resulttype:', this.props.resulttypes[i].value);
             }
           }
-      } else {
-        console.log('No data for question:', question.value);
+      // } else {
+      //   console.log('No data for question:', question.value);
       }
     });
 
-    console.log('yearsToRender:', yearsToRender);
+    console.log('returning yearsToRender:', yearsToRender);
     return yearsToRender;
-
   }
 
   getDataForCSVLink(questions, years) {
@@ -114,10 +113,11 @@ export default class DataTableList extends React.Component {
       }
       years.forEach((year) => {
         if (this.props['csv' + year] && this.props['csv' + year][question.value]) {
-          console.log('this.props[\'csv' + year + '][' + question.value + ']');
+          console.log('this.props[\'csv' + year + '\'][' + question.value + ']');
+          console.log('typeof year:', typeof year);
           labels = this.props['csv' + year][question.value].labels || [];
           data = this.props['csv' + year][question.value].data || null;
-          csvHeader = [[question.label]]; // use array of array(s)
+          csvHeader = [[year + ': ' + question.label]]; // use array of array(s)
           csvHeaders = [labels]; // use array of array(s)
           csvRows = []; // start with an empty rows array
           // loop through resulttypes and add selected data types to output rows
@@ -145,9 +145,12 @@ export default class DataTableList extends React.Component {
     let topicIndex = -1;
     let renderedQuestions = [];
     let yearsToRender = [];
+    let dataForAllCSVsLink = []
 
     this.props.questions.forEach((question, index) => {
+      if (!question.selected) { return; }
       yearsToRender = this.yearsToRenderDataTablesForQuestion(question);
+      console.log('this.props.questions.forEach', yearsToRender);
       if (yearsToRender.length) { // have any years of data to render
         renderedQuestions.push(question);
         if (question.topic !== lastTopic) {
@@ -170,19 +173,21 @@ export default class DataTableList extends React.Component {
               dataForCSVLink={this.getDataForCSVLink(question, year)}
             />
           );
+          dataForAllCSVsLink = dataForAllCSVsLink.concat(this.getDataForCSVLink(question, year));
         });
         lastTopic = question.topic;
       }
     });
 
+    console.log('Download all: yearsToRender', yearsToRender);
     if (renderedQuestions.length === 0) {
       title = <div className="DataTableList__Placeholder">[Displayed after selecting result types and questions above]</div>;
     } else if (renderedQuestions.length > 1) {
       title = <div><CSVLink
-        data={this.getDataForCSVLink(renderedQuestions, yearsToRender)}
+        data={dataForAllCSVsLink}
         filename={'data-book-selected-tables.csv'}
         className="DataTable__CSVLink"
-        >Download all selected tables as CSV</CSVLink></div>;
+        >Download all ({renderedQuestions.length}) selected tables as CSV</CSVLink></div>;
     }
 
     return (
