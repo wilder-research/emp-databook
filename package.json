@@ -1,6 +1,6 @@
 {
   "name": "databook",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "homepage": "https://wilderresearch.org/data-books/east-metro-pulse-v3/build",
   "dependencies": {
