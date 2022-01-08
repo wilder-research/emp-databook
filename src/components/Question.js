@@ -48,6 +48,7 @@ export default function Question(props) {
         + ((props.selected) ? 'checked' : 'unchecked')}
         onClick={props.onClick}>
         {props.question.label}
+        <span className="note">{props.question.note}</span>
         {((hasSelectedResultTypes.length) ? '' : <span className="Question__Choice--no-data-warning" title={'Data available: ' + hasResultTypes.join(', ')}>*N/A for selected year &amp; result types</span>)}
       </div>
     </div>

@@ -63,7 +63,9 @@ export default class DataTable extends React.Component {
     
     return (
       <div className="DataTable">
-        <div className="DataTable__QuestionLabel">{this.props.year}: {this.props.question.label}</div>
+        <div className="DataTable__QuestionLabel">{this.props.year}: {this.props.question.label}
+          <span className="note">{this.props.question.note}</span>
+        </div>
         <div className="DataTable__Wrap">
           <table className="DataTable__Table">
             <thead>
