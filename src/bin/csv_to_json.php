@@ -10,7 +10,7 @@ $settings["source"] = './csv-2021.csv';
 $settings["destination"] = '../docs/csv-2021.json';
 
 // metadata about columns within the csv
-$settings['num_columns'] = 27; //total number of columns in csv
+$settings['num_columns'] = 30; //total number of columns in csv
 
 // order here must match column order in csv file
 $settings["meta_columns"]['OrigRowNum']   = 0;
@@ -20,6 +20,13 @@ $settings["meta_columns"]['Question']     = 3;
 $settings["meta_columns"]['TableSection'] = 4;
 $settings["meta_columns"]['SectionOrder'] = 5;
 $settings["meta_columns"]['RowType']      = 6; //6 = the 7th column in csv source file
+//$settings["meta_columns"]['Qnum2021']      = 7; // 2024
+$settings["meta_columns"]['Question_2021']      = 7; // 2021
+$settings["meta_columns"]['Qnum2018']      = 8; // 2021
+$settings["meta_columns"]['Topic2018']      = 9; //2021
+//$settings["meta_columns"]['Topic2021']      = 8; // 2024
+//$settings["meta_columns"]['Qnum2018']      = 9; // 2024
+//$settings["meta_columns"]['Topic2018']      = 10; // 2024
 // 7 = Qnum2018 (2021 file)
 // 8 = Topic2018 (2021 file)
 $settings["meta_columns"]['DataColStart'] = 10; //index # for first data column (7 in 2018, 10 in 2021)

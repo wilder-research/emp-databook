@@ -364,6 +364,7 @@ export default class DataBook extends React.Component {
               datayears={current.datayears}
               csv2018={this.props.csv2018}
               csv2021={this.props.csv2021}
+              csv2024={this.props.csv2024}
               shouldShowQuestion={(question) => this.shouldShowQuestion(question)}
               onClick={(i) => this.handleQuestionClick(i)}
               onSelectVisibleQuestions={() => this.handleSelectVisibleQuestions()}
@@ -380,6 +381,7 @@ export default class DataBook extends React.Component {
             datayears={current.datayears}
             csv2018={this.props.csv2018}
             csv2021={this.props.csv2021}
+            csv2024={this.props.csv2024}
           />
         </div>
       </div>
