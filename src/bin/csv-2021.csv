@@ -2777,7 +2777,7 @@ OrigRowNum,TableType,Topic,Question,TableSection,SectionOrder,RowType,Question_2
 2866,Closed End,Health,Q24_21,Race / ethnicity,7,Data,Q23C_21,Q24_18,Health,   White or Caucasian alone,16%,84%,2091,,,,,,,,,,,,,,,,
 2867,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 2868,Closed End,Economic opportunity and security,Q26_21,Title,1,Title,Q24_21,Q26_18,Economic opportunity and security,"Right now, is there anything that is making it hard for you to get a job or find a better job?",,,,,,,,,,,,,,,,,,,
-2869,Closed End,Economic opportunity and security,Q26_21,Column labels,1,Labels,Q24_21,Q26_18,Economic opportunity and security,,Yes,No, I am satisfied with my current job,No, I am not currently employed or in the job market (e.g., retired, full-time student or parent, disabled, etc.),Number of respondents (unweighted),,,,,,,,,,,,,,,
+2869,Closed End,Economic opportunity and security,Q26_21,Column labels,1,Labels,Q24_21,Q26_18,Economic opportunity and security,,Yes,"No, I am satisfied with my current job","No, I am not currently employed or in the job market (e.g., retired, full-time student or parent, disabled, etc.)",Number of respondents (unweighted),,,,,,,,,,,,,,,
 2870,Closed End,Economic opportunity and security,Q26_21,Region,1,Header,Q24_21,Q26_18,Economic opportunity and security,Results by region:,,,,,,,,,,,,,,,,,,,
 2871,Closed End,Economic opportunity and security,Q26_21,Region,2,Data,Q24_21,Q26_18,Economic opportunity and security,   East Metro overall,15%,60%,26%,3073,,,,,,,,,,,,,,,
 2872,Closed End,Economic opportunity and security,Q26_21,Region,3,Data,Q24_21,Q26_18,Economic opportunity and security,   Dakota County,11%,66%,23%,422,,,,,,,,,,,,,,,
