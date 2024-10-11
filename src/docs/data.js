@@ -59,7 +59,7 @@ export const QUESTIONS = [
   { selected: false, value: 'Q11H', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Pedestrian walkability and safety' },
   { selected: false, value: 'Q11I', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Options for biking' },
   { selected: false, value: 'Q11J', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Accessibility of public transit for older adults and people with disabilities' },
-  { selected: false, value: 'Q14K_21', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Getting the rest of the way from the public transit stop to your destination (home, work, etc)' },
+  { selected: false, value: 'Q11K', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Getting the rest of the way from the public transit stop to your destination (home, work, etc)' },
   { selected: false, value: 'Q11L', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Overall experience getting around the East Metro' },
   { selected: false, value: 'Q13C_18', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Safety of public transit' },
   { selected: false, value: 'Q12', topic: 'Transportation', label: 'Which transportation issues are most important to you?' },
