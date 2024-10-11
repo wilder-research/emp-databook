@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/emp-databook/static/css/main.3d67dabf.css",
-    "main.js": "/emp-databook/static/js/main.3202b02c.js",
+    "main.js": "/emp-databook/static/js/main.6a489426.js",
     "index.html": "/emp-databook/index.html",
     "main.3d67dabf.css.map": "/emp-databook/static/css/main.3d67dabf.css.map",
-    "main.3202b02c.js.map": "/emp-databook/static/js/main.3202b02c.js.map"
+    "main.6a489426.js.map": "/emp-databook/static/js/main.6a489426.js.map"
   },
   "entrypoints": [
     "static/css/main.3d67dabf.css",
-    "static/js/main.3202b02c.js"
+    "static/js/main.6a489426.js"
   ]
 }
