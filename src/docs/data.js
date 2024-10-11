@@ -98,7 +98,7 @@ export const QUESTIONS = [
   { selected: false, value: 'Q21B', topic: 'Economic opportunity and security', label: 'What other barriers do you face getting a job or finding a better job?' },
   { selected: false, value: 'Q26A_21', topic: 'Economic opportunity and security', label: 'How worried are you that the COVID-19 pandemic will affect your economic well-being?' },
   { selected: false, value: 'Q26B_21', topic: 'Economic opportunity and security', label: 'How worried are you that the COVID-19 pandemic will affect the economy overall?' },
-  // { selected: false, value: 'Q28', topic: 'Economic opportunity and security', label: 'How worried are you about getting or finding a better job?' },
+  { selected: false, value: 'Q21I', topic: 'Economic opportunity and security', label: 'How worried are you about getting or finding a better job?' },
   { selected: false, value: 'Q22A', topic: 'Economic opportunity and security', label: 'How worried are you about paying your rent or mortgage?' },
   { selected: false, value: 'Q22B', topic: 'Economic opportunity and security', label: 'How worried are you about paying your utilities?' },
   { selected: false, value: 'Q22C', topic: 'Economic opportunity and security', label: 'How worried are you about having enough money to put food on the table?' },
