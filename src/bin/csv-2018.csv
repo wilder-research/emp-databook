@@ -2440,7 +2440,7 @@ OrigRowNum,TableType,Topic,Question,TableSection,SectionOrder,RowType,TblCol_1,T
 2437,Closed End,Health,Q13,Race / ethnicity,6,Data,   White or Caucasian,97%,3%,1694,,,,,,,,,,,,,,,,
 2438,,Health,,,,,,,,,,,,,,,,,,,,,,,,
 2439,Closed End,Health,Q16_18,Title,1,Title,Q16. What kind of health insurance do you have? (Check all that apply),,,,,,,,,,,,,,,,,,,
-2440,Closed End,Health,Q16_18,Title,2,Labels,,Employer-provided plan (through my employer or the employer of someone I live with),"A plan I purchased on my own or through MNSure, including Medicare Supplements",A public insurance program such as Medical Assistance, "Medicare, or Indian Health Services",Number of respondents (unweighted),,,,,,,,,,,,,,,
+2440,Closed End,Health,Q16_18,Title,2,Labels,,Employer-provided plan (through my employer or the employer of someone I live with),"A plan I purchased on my own or through MNSure, including Medicare Supplements","A public insurance program such as Medical Assistance, Medicare, or Indian Health Services",Number of respondents (unweighted),,,,,,,,,,,,,,,
 2441,Closed End,Health,Q16_18,Region,1,Header,Results by region:,--,--,--,,,,,,,,,,,,,,,,
 2442,Closed End,Health,Q16_18,Region,2,Data,   East Metro overall,68%,17%,20%,1871,,,,,,,,,,,,,,,
 2443,Closed End,Health,Q16_18,Region,3,Data,   Dakota County,73%,17%,16%,428,,,,,,,,,,,,,,,
