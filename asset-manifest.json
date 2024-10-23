@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/emp-databook/static/css/main.1ff2762a.css",
+    "main.js": "/emp-databook/static/js/main.da4bc260.js",
+    "index.html": "/emp-databook/index.html",
+    "main.1ff2762a.css.map": "/emp-databook/static/css/main.1ff2762a.css.map",
+    "main.da4bc260.js.map": "/emp-databook/static/js/main.da4bc260.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1ff2762a.css",
+    "static/js/main.da4bc260.js"
+  ]
+}
