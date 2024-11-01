@@ -48,7 +48,7 @@ export const QUESTIONS = [
   { selected: false, value: 'Q10F', topic: 'Transportation', label: 'In general, how easy or hard is it for you to get where you need to go, such as to a clinic, pharmacy, or other place to get health care?' },
   { selected: false, value: 'Q10G', topic: 'Transportation', label: 'In general, how easy or hard is it for you to get where you need to go, such as to entertainment or recreation activities?' },
   { selected: false, value: 'Q10H', topic: 'Transportation', label: 'In general, how easy or hard is it for you to get where you need to go, such as to social service agencies?' },
-  { selected: false, value: 'Q10I', topic: 'Transportation', label: 'In general, how easy or hard is t for you to get where you need to go, such as to religious services?' },
+  { selected: false, value: 'Q10I', topic: 'Transportation', label: 'In general, how easy or hard is it for you to get where you need to go, such as to religious services?' },
   { selected: false, value: 'Q11A', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Public transit routes available' },
   { selected: false, value: 'Q11B', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Condition and cleanliness of public transit stops and shelters' },
   { selected: false, value: 'Q11C', topic: 'Transportation', label: 'Please rate these aspects of transportation in the East Metro: Safety of public transit (crime-related)' },
