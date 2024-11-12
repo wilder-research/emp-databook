@@ -2,7 +2,7 @@
   "name": "databook",
   "version": "0.4.0",
   "private": true,
-  "homepage": "https://wilderresearch.org/data-books/east-metro-pulse-v4",
+  "homepage": "https://wilderresearch.org/data-books/east-metro-pulse-v4/",
   "dependencies": {
     "normalize.css": "^8.0.1",
     "react": "^16.11.0",
