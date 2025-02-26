@@ -9,6 +9,7 @@ import 'normalize.css';
 // Main SCSS for app layout; contains all other SCSS imports
 import './index.scss';
 
+
 // React
 import React from 'react';
 import ReactDOM from 'react-dom';
