@@ -9,31 +9,38 @@ export default class DataTableList extends React.Component {
   //props passed:
   //questions={current.questions}
   //resulttypes={current.resulttypes}
-  //csv={this.props.csv}
+  //datayears={current.datayears}
+  //csv2018={this.props.csv2018}
+  //csv2021={this.props.csv2021}
 
-  shouldRenderDataTableForQuestion(question) {
+  yearsToRenderDataTablesForQuestion(question) {
+    
+    let yearsToRender = [];
+    
     if (!question.selected || !question.value) {
-      return false;
+      return yearsToRender;
     }
 
-    const q = this.props.csv[question.value];
-    if (!q) {
-      return false;
-    }
-
-    const data = this.props.csv[question.value].data;
-    if (!data) {
-      return false;
-    }
-
-    for (let i = 0; i < this.props.resulttypes.length; i++) {
-      if (this.props.resulttypes[i].selected && data[this.props.resulttypes[i].value]) {
-        return true;
+    this.props.datayears.forEach(datayear => {
+      if (datayear.selected &&
+        this.props['csv' + datayear.value] && 
+        this.props['csv' + datayear.value][question.value] &&
+        this.props['csv' + datayear.value][question.value]['data']) {
+          for (let i = 0; i < this.props.resulttypes.length; i++) {
+            if (this.props.resulttypes[i].selected &&
+              this.props['csv' + datayear.value][question.value]['data'][this.props.resulttypes[i].value]) {
+                console.log('data for resulttype:', this.props.resulttypes[i].value);
+                yearsToRender.push(datayear.value); // have data for at least 1 year and 1 selected result type
+                break; 
+            }
+          }
       }
-    }
+    });
+
+    return yearsToRender;
   }
 
-  getDataForCSVLink(questions) {
+  getDataForCSVLink(question, year) {
     let labels = [],
         data = {},
         csvHeader = [],
@@ -42,20 +49,21 @@ export default class DataTableList extends React.Component {
         csvData = [],
         csvTableSeparator = [[''],['']]; // creates spacer rows in csv between tables
     
-    // may get passed one question or array of questions
-    if(!questions.length || !Array.isArray(questions)) {
-      questions = [questions];
+    //minimal data validation, this function should only be called after other checks
+    if(!question || !question.selected) {
+      return csvData;
     }
 
-    // loop through each question passed
-    questions.forEach((question, index) => {
-      // questions should have at least a value and label property
-      if(!question.value || !question.label) {
-        return;
-      }
-      labels = this.props.csv[question.value].labels || [];
-      data = this.props.csv[question.value].data || null;
-      csvHeader = [[question.label]]; // use array of array(s)
+    //minimal data validation
+    if(!year || year === '') {
+      return csvData;
+    }
+
+    //minimal data validation
+    if (this.props['csv' + year] && this.props['csv' + year][question.value]) {
+      labels = this.props['csv' + year][question.value].labels || [];
+      data = this.props['csv' + year][question.value].data || null;
+      csvHeader = [[year + ': ' + question.label]]; // use array of array(s)
       csvHeaders = [labels]; // use array of array(s)
       csvRows = []; // start with an empty rows array
       // loop through resulttypes and add selected data types to output rows
@@ -65,12 +73,12 @@ export default class DataTableList extends React.Component {
           data[resulttype.value].forEach((row, j) => {
             csvRows.push(row);
           });
-          
         }
       });
-      // append csvData for current question
+      // append each partial result array to csvData
       csvData = csvData.concat(csvHeader, csvHeaders, csvRows, csvTableSeparator);
-    });
+    }
+
     return csvData;
   }
 
@@ -79,11 +87,16 @@ export default class DataTableList extends React.Component {
     const rows = [];
     let lastTopic = null;
     let topicIndex = -1;
-    let renderedQuestions = [];
+    let renderedTables = 0;
+    let yearsToRender = [];
+    let dataForCSV = [];
+    let dataForAllCSV = []
 
     this.props.questions.forEach((question, index) => {
-      if (this.shouldRenderDataTableForQuestion(question)) {
-        renderedQuestions.push(question);
+      if (!question.selected) { return; }
+      yearsToRender = this.yearsToRenderDataTablesForQuestion(question);
+      console.log('this.props.questions.forEach', yearsToRender);
+      if (yearsToRender.length) { // have any years of data to render
         if (question.topic !== lastTopic) {
           rows.push(
             <TopicHeading
@@ -93,27 +106,34 @@ export default class DataTableList extends React.Component {
           );
           topicIndex--;
         }
-        rows.push(
-          <DataTable
-            key={index}
-            question={question}
-            resulttypes={this.props.resulttypes}
-            csv={this.props.csv}
-            dataForCSVLink={this.getDataForCSVLink(question)}
-          />
-        );
+        yearsToRender.forEach((year) => {
+          renderedTables++;
+          dataForCSV = this.getDataForCSVLink(question, year);
+          rows.push(
+            <DataTable
+              key={year + index}
+              question={question}
+              resulttypes={this.props.resulttypes}
+              year={year}
+              csv={this.props['csv' + year]}
+              dataForCSVLink={dataForCSV}
+            />
+          );
+          dataForAllCSV = dataForAllCSV.concat(dataForCSV);
+        });
         lastTopic = question.topic;
       }
     });
 
-    if(renderedQuestions.length === 0) {
+    if (renderedTables === 0) {
       title = <div className="DataTableList__Placeholder">[Displayed after selecting result types and questions above]</div>;
-    } else if(renderedQuestions.length > 1) {
+    } else if (renderedTables > 1) {
+      console.log('Download all: yearsToRender', yearsToRender);
       title = <div><CSVLink
-        data={this.getDataForCSVLink(renderedQuestions)}
+        data={dataForAllCSV}
         filename={'data-book-selected-tables.csv'}
         className="DataTable__CSVLink"
-        >Download all selected tables as CSV</CSVLink></div>;
+        >Download all tables below as CSV</CSVLink></div>;
     }
 
     return (

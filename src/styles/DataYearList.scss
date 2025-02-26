@@ -1,0 +1,53 @@
+.DataYearList > p {
+    flex: 1 3 100%;
+}
+
+.DataYearList__Choices {
+    margin-left: 10px;
+    flex: 0 1 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.DataYearList__Choice {
+    padding: 2px 0;
+    margin: 0;
+    flex: 0 1 100%;
+}
+
+.DataYearList__Choice:focus,
+.DataYearList__Choice:hover {
+    cursor: pointer;
+}
+
+.DataYearList__Choice:hover::before {
+    content: "\2611\00A0";
+}
+
+.DataYearList__Choice--checked {
+    color: $color-green;
+    font-weight: 500;
+}
+
+.DataYearList__Choice--checked::before {
+    content: "\2611\00A0";
+    display: inline-block;
+    font-size: 125%;
+}
+
+.DataYearList__Choice--unchecked {
+    color: $color-black;
+}
+
+.DataYearList__Choice--unchecked::before {
+    content: "\2610\00A0";
+    display: inline-block;
+    font-size: 125%;
+}
+
+/* Medium+ screens */
+@media all and (min-width: $screen-width-md) {
+    .DataYearList__Choice {
+        flex: 0 1 20%;
+    }
+}

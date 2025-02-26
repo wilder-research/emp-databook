@@ -9,13 +9,16 @@ import 'normalize.css';
 // Main SCSS for app layout; contains all other SCSS imports
 import './index.scss';
 
+
 // React
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Load the data files
-import { QUESTIONS, TOPICS, RESULTTYPES } from './docs/data'; // docs/data.js
-import CSV from './docs/csv'; // docs/csv.json
+import { QUESTIONS, TOPICS, RESULTTYPES, DATAYEARS } from './docs/data'; // docs/data.js
+import CSV2018 from './docs/csv-2018'; // docs/csv-2018.json
+import CSV2021 from './docs/csv-2021'; // docs/csv-2021.json
+import CSV2024 from './docs/csv-2024'; // docs/csv-2024.json
 
 // Main app component
 import DataBook from './components/DataBook';
@@ -26,7 +29,10 @@ ReactDOM.render(
         questions={QUESTIONS}
         topics={TOPICS}
         resulttypes={RESULTTYPES}
-        csv={CSV}
+        datayears={DATAYEARS}
+        csv2018={CSV2018}
+        csv2021={CSV2021}
+        csv2024={CSV2024}
     />,
     document.getElementById('databookApp')
 );

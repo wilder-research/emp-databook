@@ -7,6 +7,10 @@
     margin: 1.25rem 0 .5rem 0;
     font-size: 1.25rem;
 }
+.DataTable__QuestionLabel .note {
+    padding-left: 0.5rem;
+    font-style: italic;
+}
 
 .DataTable__Wrap {
     display: inline-block;
@@ -31,7 +35,7 @@
 	font-size: .875rem;
     border:#e0e0e0 1px solid;
     border-collapse: collapse;
-	max-width: 1400px;
+	max-width: 1920px;
 }
 .DataTable__Table thead th {
     font-weight: 700;
@@ -45,7 +49,7 @@
 }
 .DataTable__Table tbody th {
     font-weight: 400;
-    min-width: 6rem;
+    min-width: 25rem;
     max-width: 20rem;
 	border-bottom: 1px solid #e0e0e0;
 	vertical-align: top;

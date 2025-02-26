@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import DataBook from './databook';
-import { QUESTIONS, TOPICS, RESULTTYPES } from './docs/data';
+import DataBook from './components/DataBook';
+import { QUESTIONS, TOPICS, RESULTTYPES, DATAYEARS } from './docs/data'; // docs/data.js
+import CSV2018 from './docs/csv-2018'; // docs/csv-2018.json
+import CSV2021 from './docs/csv-2021'; // docs/csv-2021.json
+import CSV2024 from './docs/csv-2024'; // docs/csv-2024.json
 
 //simple whole app smoke test
 it('renders without crashing', () => {
@@ -12,6 +15,9 @@ it('renders without crashing', () => {
       questions={QUESTIONS}
       topics={TOPICS}
       resulttypes={RESULTTYPES}
-      csv={CSV}
+      datayears={DATAYEARS}
+      csv2018={CSV2018}
+      csv2021={CSV2021}
+      csv2024={CSV2024}
 />, div);
 });

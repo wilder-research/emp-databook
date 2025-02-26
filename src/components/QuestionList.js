@@ -68,7 +68,10 @@ export default class QuestionList extends React.Component {
           key={index}
           selected={question.selected}
           question={question}
-          csv={this.props.csv}
+          datayears={this.props.datayears}
+          csv2018={this.props.csv2018}
+          csv2021={this.props.csv2021}
+          csv2024={this.props.csv2024}
           resulttypes={this.props.resulttypes}
           onClick={() => this.props.onClick(index)}
           />
